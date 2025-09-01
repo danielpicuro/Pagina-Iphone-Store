@@ -45,7 +45,7 @@ body{
 }
 
 /* Establecemos un ancho máximo y centrado para todos los bloques principales */
-header, nav, main, aside, footer{
+header, main, aside, footer{
   max-width: var(--maxw); /* límite de ancho */
   margin-inline: auto;    /* centra horizontalmente */
   padding-inline: 1rem;   /* espacio lateral interno */
@@ -93,6 +93,9 @@ header p{
    NAVEGACIÓN
 ========================================================= */
 nav{
+  max-width: none;   /* quitamos el límite de 1100px */
+  margin: 0;         /* quitamos centrado automático */
+  padding-inline: 2rem;
   display: flex; /* Convierte el contenedor en flexbox para alinear elementos en fila */
   position: sticky; /* se queda pegada al hacer scroll */
   top: 0;           /* pegada al tope */
@@ -103,6 +106,26 @@ nav{
   border-bottom: 1px solid var(--border);
   justify-content: space-between;
   align-items: center; /* Centra verticalmente los elementos */
+}
+.navbar {
+  display: flex; /* Convierte el nav en un contenedor flexible */
+  justify-content: space-between; /* Separa las 3 cajas: izquierda, centro y derecha */
+  align-items: center; /* Centra verticalmente todos los elementos */
+  padding: 0 20px; /* Agrega espacio a los lados */
+}
+.enlaces {
+  flex: 1; /* Ocupa todo el espacio central posible */
+  text-align: center; /* Centra los enlaces horizontalmente */
+}
+.enlaces a {
+  margin: 0 10px; /* Espacio entre los enlaces */
+  text-decoration: none; /* Quita subrayado */
+  color: var(--text); /* Color del texto */
+}
+/* Caja 3: Redes sociales */
+.redes a img {
+  width: 20px; /* Tamaño uniforme de iconos */
+  margin-left: 10px; /* Espacio entre iconos */
 }
 nav ul{
   list-style: none;         /* quitamos viñetas */
