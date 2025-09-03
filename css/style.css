@@ -13,7 +13,8 @@
   --primary-strong: #3b82f6; /* color principal al hacer hover */
   --border: #1f2937;         /* color para bordes */
   --radius: 14px;            /* radios de bordes redondeados */
-  --maxw: 1100px;            /* ancho máximo del contenido */
+  --maxw: 1100px;
+  --maxmargin: 2rem;            /* ancho máximo del contenido */
 }
 
 /* Hacemos que todos los elementos usen "border-box",
@@ -45,7 +46,7 @@ body{
 }
 
 /* Establecemos un ancho máximo y centrado para todos los bloques principales */
-header, main, aside, footer{
+header, aside, footer{
   max-width: var(--maxw); /* límite de ancho */
   margin-inline: auto;    /* centra horizontalmente */
   padding-inline: 1rem;   /* espacio lateral interno */
@@ -76,7 +77,8 @@ a:focus-visible{
    HEADER
 ========================================================= */
 header{
-  padding-block: 3.2rem 2rem; /* espacio arriba y abajo */
+  height: 30px;
+  padding-block: .2rem 1rem; /* espacio arriba y abajo */
   text-align: center;         /* centrar texto */
 }
 header h1{
@@ -86,33 +88,37 @@ header h1{
 }
 header p{
   color: var(--muted);    /* color gris más suave */
-  font-size: 1.05rem;     /* un poco más grande que normal */
+  font-size: .75rem;     /* un poco más grande que normal */
 }
 
 /* =========================================================
    NAVEGACIÓN
 ========================================================= */
-nav{
-  max-width: none;   /* quitamos el límite de 1100px */
-  margin: 0;         /* quitamos centrado automático */
-  padding-inline: 2rem;
-  display: flex; /* Convierte el contenedor en flexbox para alinear elementos en fila */
-  position: sticky; /* se queda pegada al hacer scroll */
-  top: 0;           /* pegada al tope */
-  z-index: 20;      /* prioridad para que quede encima */
-  background: rgba(17,24,39,.6); /* fondo semi-transparente */
-  backdrop-filter: blur(6px);    /* desenfoque detrás (efecto vidrio) */
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  justify-content: space-between;
-  align-items: center; /* Centra verticalmente los elementos */
+/* Unifica todo en este selector */
+/* Estilos para la barra de navegación principal */
+nav.navbar {
+  max-width: none; /* Anula cualquier límite de ancho máximo (permite que ocupe todo el ancho disponible) */
+  margin: 0; /* Elimina márgenes externos que puedan empujar la barra hacia un lado */
+  width: 100%;  /* Asegura que el nav ocupe todo el ancho de la ventana */
+
+  display: flex; /* Convierte al nav en un contenedor flexbox para alinear los hijos (links, logo, etc.) */
+  justify-content: space-between; /* Distribuye los elementos dejando espacio entre ellos (extremos separados) */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  padding-inline: clamp(16px, 4vw, 48px); 
+  /* Agrega padding lateral responsivo:
+     - mínimo 16px
+     - escala en función del ancho de la pantalla (4vw)
+     - máximo 48px */
+  position: sticky; /* Hace que la barra se quede "pegada" arriba al hacer scroll */
+  top: 0; /* La fija en la parte superior de la ventana */
+  z-index: 20; /* Asegura que quede por encima de otros elementos al hacer scroll */
+  background: rgba(17,24,39,.6); /* Fondo semi-transparente para estilo moderno */
+  backdrop-filter: blur(6px); /* Aplica desenfoque a lo que hay detrás del nav (efecto de vidrio) */
+  border-top: 1px solid var(--border); /* Línea superior con color definido en la variable --border */
+  border-bottom: 1px solid var(--border); /* Línea inferior con color definido en la variable --border */
 }
-.navbar {
-  display: flex; /* Convierte el nav en un contenedor flexible */
-  justify-content: space-between; /* Separa las 3 cajas: izquierda, centro y derecha */
-  align-items: center; /* Centra verticalmente todos los elementos */
-  padding: 0 20px; /* Agrega espacio a los lados */
-}
+
+
 .enlaces {
   flex: 1; /* Ocupa todo el espacio central posible */
   text-align: center; /* Centra los enlaces horizontalmente */
@@ -127,15 +133,7 @@ nav{
   width: 20px; /* Tamaño uniforme de iconos */
   margin-left: 10px; /* Espacio entre iconos */
 }
-nav ul{
-  list-style: none;         /* quitamos viñetas */
-  display: flex;            /* ponemos los ítems en fila */
-  gap: .8rem;               /* espacio entre ítems */
-  padding: .6rem 0;         /* espacio vertical */
-  margin: 0;                /* sin margen */
-  flex-wrap: wrap;          /* si no entra, pasa a la siguiente línea */
-  justify-content: left;  /* centramos los ítems */
-}
+
 nav a{
   display: inline-block;       /* para poder dar padding */
   padding: .5rem .9rem;        /* espacio interno */
@@ -143,9 +141,7 @@ nav a{
   border: 1px solid transparent; /* borde invisible */
   transition: background 0.3s ease, color 0.3s ease;
 }
-nav ul li {
-  margin-left: 20px; /* Cada enlace se separa 20px del anterior */
-}
+
 nav a:hover,
 nav a:focus-visible{
   background: #0b1224;     /* fondo oscuro al hover */
@@ -235,4 +231,590 @@ img{
   max-width: 100%; /* que nunca sobrepase el ancho del contenedor */
   height: auto;    /* mantiene proporción */
   display: block;  /* evita espacio debajo */
+}
+/* hero-slide Section principal */
+/* ========== HERO SLIDER (carrusel) ========== */
+.hero-slide {
+  position: relative;  /* Para posicionar los puntitos */
+  width: 100%;       /* Ocupa todo el ancho de la ventana */
+  height: 100vh;       /* Ocupa toda la altura visible */
+  overflow: hidden;    /* Oculta el contenido que se sale */
+  margin: 0 auto;
+}
+
+.hero-slides {
+  display: flex; /* Coloca los slides en fila */
+  transition: transform 0.5s ease-in-out; /* Animación al mover slides */
+  height: 100%;
+}
+
+.hero-slide-content {
+  min-width: 100%; /* Cada slide ocupa toda la pantalla */
+  height: 100%;
+  display: flex; /* Layout de texto e imagen */
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  box-sizing: border-box;
+}
+
+/* Columna de texto */
+.hero-slide-text {
+  flex: 2; /* 2/3 de espacio */
+}
+.hero-slide-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.hero-slide-text p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+}
+.hero-slide-btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.hero-slide-btn:hover {
+  background: var(--primary-strong);
+}
+
+/* Columna de imagen */
+.hero-slide-image {
+  flex: 1; /* 1/3 de espacio */
+  display: flex;
+  justify-content: center;
+}
+.hero-slide-image img {
+  max-width: 100%;
+  border-radius: 12px;
+}
+
+/* Puntitos indicadores */
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;  /* los coloca al fondo */
+  left: 50%;
+  transform: translateX(-50%); /* centra horizontalmente */
+  display: flex;
+  gap: 10px;
+}
+.carousel-dots .dot {
+  width: 12px;
+  height: 12px;
+  background: gray;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.carousel-dots .dot.active {
+  background: white;
+}
+
+.seccion-acerca {
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-image: url("../img/acerca.jpg"); /* Ajusta la ruta a tu carpeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  height: 100vh;           /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: var(--maxmargin)
+}
+
+.contenido-acerca {
+  display: flex;
+  flex-direction: column;  /* Coloca los elementos uno debajo del otro */
+  gap: 2.5rem;  
+  max-width: 900px;  
+  padding: 2rem;
+  margin: 0 auto;
+  border-radius: 8px;
+  align-items: center;
+}
+
+
+
+
+
+.seccion-catalogo {
+  padding: 4rem 1.5rem;
+  margin: var(--maxmargin);
+  text-align: center;
+}
+.seccion-catalogo h1 {
+  text-align: left;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Contenedor con 4 bloques en fila */
+.catalogo-content {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  padding: clamp(1rem, 3vw, 4rem);
+  flex-wrap: wrap; /* Por si se reduce mucho la pantalla */
+}
+
+/* Cada bloque del catálogo */
+.cat {
+  background: #1f2937;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1 1 calc(25% - 1.5rem); /* 4 columnas */
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+  max-width: 100%;
+}
+
+/* Parte superior: imagen */
+.cat-img {
+  flex: 1; /* Ocupa el 50% aprox */
+}
+.cat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta bien la imagen */
+  display: block;
+}
+
+/* Parte inferior: texto */
+.cat-info {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  color: #eee;
+}
+.cat-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.cat-info p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.cat-info button {
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.cat-info button:hover {
+  background: var(--primary-strong);
+}
+
+.acerca-img{
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-image:
+    linear-gradient(rgba(180, 170, 170, 0.5), rgba(255, 255, 255, 0.5)),
+    url('../img/acerca.jpg');  /* Gradiente oscuro encima */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  color: white; /* Para que el texto sea visible sobre la imagen */ 
+  min-height: 450px;           /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+  
+}
+.cuadro-acerca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.bloques-acerca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 700px;
+  min-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bloque-main-acerca {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #4b4e53; /* gris claro */
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  max-width: 700px;
+  width: 100%;
+  min-height: 100px;
+  margin: auto;
+  gap: 1rem;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.bloque-main-acerca p {
+  margin: 0;
+  font-size: 0.95rem;
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+}
+
+.icon1-acerca {
+  width: 2rem;              /* Control del tamaño solo desde CSS */
+  height: 2rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0; 
+}
+
+.icon2-acerca {
+  width: 10rem;              /* Control del tamaño solo desde CSS */
+  height: 6rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0; 
+}
+
+
+.contacto-img{
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-image:
+    linear-gradient(rgba(180, 170, 170, 0.5), rgba(255, 255, 255, 0.5)),
+    url('../img/acerca.jpg');  /* Gradiente oscuro encima */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  color: white; /* Para que el texto sea visible sobre la imagen */ 
+  min-height: 450px;      /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+  
+}
+.cuadro-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.bloques-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 700px;
+  min-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bloque-main-contacto {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #4b4e53; /* gris claro */
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: left;
+  max-width: 700px;
+  width: 100%;
+  min-height: 100px;
+  margin: auto;
+  gap: 1rem;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.bloque-main-contacto p {
+  margin: 0;
+  font-size: 0.95rem;
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+}
+
+.icon1-contacto {
+  width: 2rem;              /* Control del tamaño solo desde CSS */
+  height: 2rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0; 
+}
+
+.icon2-contacto {
+  width: 10rem;              /* Control del tamaño solo desde CSS */
+  height: 6rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0; 
+}
+
+
+
+
+
+/* ===============================
+   TIENDA – variables locales
+   =============================== */
+/* Scope: solo dentro de .shop para no romper tu tema global */
+.shop{ /* Contenedor de toda la tienda */
+  --shop-bg: var(--surface, #f7f7f7);                 /* Fondo claro de la página de tienda */
+  --shop-card: var(--card, #ffffff);                  /* Fondo de cada card */
+  --shop-text: var(--text-strong, #0f172a);           /* Texto principal oscuro */
+  --shop-muted: var(--muted, #6b7280);                /* Texto secundario/gris */
+  --shop-border: var(--border, #e5e7eb);              /* Color de bordes suaves */
+  --shop-primary: var(--primary, #111111);            /* Botón negro (usa tu --primary si quieres) */
+  --shop-radius: var(--radius, 16px);                 /* Radio consistente */
+  --shop-shadow: 0 8px 24px rgba(0,0,0,.08);          /* Sombra suave de las cards */
+}
+
+/* ===============================
+   Layout general (2 columnas)
+   =============================== */
+.shop{ /* Área principal de la sección tienda */
+  padding: 1rem;                                      /* Respiro lateral en móviles */
+  background: var(--shop-bg);                        /* Fondo global de la tienda */
+  color: var(--shop-text);                           /* Color base del texto */
+}
+
+.shop__container{ /* Grid que reparte filtros + resultados */
+  max-width: 1200px;                                  /* Ancho máximo para un buen line-length */
+  margin-inline: auto;                                /* Centrado horizontal */
+  display: grid;                                      /* Activamos CSS Grid */
+  grid-template-columns: 260px 1fr;                   /* Columna fija de 260px + columna flexible */
+  gap: 60px;                                          /* Separación entre columnas */
+}
+
+/* ===============================
+   Filtros laterales (aside)
+   =============================== */
+.shop__filters{ /* Columna izquierda */
+  position: sticky;                                   /* Se queda fija al hacer scroll */
+  top: 88px;                                          /* Ajusta según alto de tu navbar */
+  align-self: start;                                  /* Empieza arriba del contenedor */
+  margin-left: -80px;                                 /* Mueve 20px a la izquierda */
+}
+
+.filter{ /* Bloque "Brand" basado en <details> */
+  background: var(--shop-card);                       /* Fondo blanco de panel */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: var(--shop-radius);                  /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                     /* Sombra ligera */
+  padding: .5rem .75rem;                              /* Relleno interno */
+}
+
+.filter__summary{ /* Cabecera clicable del details */
+  list-style: none;                                   /* Quitamos viñeta por defecto */
+  display: flex;                                      /* Alineación horizontal */
+  justify-content: space-between;                     /* Título izquierda, flecha derecha */
+  align-items: center;                                /* Centrado vertical */
+  cursor: pointer;                                    /* Cursor de mano */
+  padding: .5rem;                                     /* Área clicable cómoda */
+  font-weight: 600;                                   /* Un poco más destacado */
+}
+
+.filter__summary::-webkit-details-marker{ display: none; } /* Oculta el triángulo por defecto en Safari/Chrome */
+
+.filter__chev{ /* Flecha visual ▾ */
+  transition: transform .2s ease;                     /* Animación al abrir/cerrar */
+}
+
+.filter[open] .filter__chev{ transform: rotate(180deg); } /* Al abrir rotamos la flecha */
+
+.filter__search{ /* Envoltorio del input de búsqueda */
+  display: grid;                                      /* Usamos grid para icono + input */
+  grid-template-columns: 20px 1fr;                    /* Columna estrecha para el icono */
+  gap: 5px;                                           /* Separación entre icono e input */
+  align-items: center;                                /* Centrado vertical */
+  background: #f3f4f6;                                /* Fondo grisecito del campo */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 10px;                                /* Bordes redondeados */
+  padding: .5rem .75rem;                              /* Relleno interno */
+  margin: .5rem;                                      /* Respiro respecto al borde del panel */
+}
+
+.filter__searchIcon{ font-size: .95rem; }             /* Tamaño del icono de la lupa */
+
+.filter__searchInput{ /* Input real */
+  border: 0;                                          /* Sin borde extra (ya lo tiene el wrapper) */
+  outline: 0;                                         /* Sin contorno azul al foco (lo controlas si quieres) */
+  background: transparent;                            /* Transparente para ver el fondo del wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto oscuro legible */
+}
+
+.filter__list{ /* Lista de checkboxes */
+  margin: .25rem 0 .5rem;                             /* Márgenes verticales */
+  padding: 0;                                         /* Sin padding de <ul> */
+  list-style: none;                                   /* Sin viñetas */
+  max-height: 55vh;                                   /* Altura máxima con scroll si crece mucho */
+  overflow: auto;                                     /* Scroll interno si sobrepasa la altura */
+}
+
+.filter__option{ /* Cada línea de opción (label) */
+  display: grid;                                      /* Grid para alinear checkbox, nombre, cantidad */
+  grid-template-columns: auto 1fr auto;               /* Checkbox | nombre estira | cantidad a la derecha */
+  gap: 10px;                                          /* Separación interna */
+  align-items: center;                                /* Centrado vertical */
+  padding: .5rem .5rem;                               /* Relleno clicable */
+  border-radius: 8px;                                 /* Bordes suaves al hover */
+  cursor: pointer;                                    /* Cursor de mano */
+}
+
+.filter__option:hover{ background: #f9fafb; }         /* Efecto hover suave */
+
+.filter__name{ color: var(--shop-text); }             /* Texto principal de la marca */
+.filter__count{ color: var(--shop-muted); }           /* Número en gris para jerarquía */
+
+/* ===============================
+   Barra de resultados (header)
+   =============================== */
+.shop__results{ /* Columna derecha (productos) */
+  min-width: 0;                                       /* Evita overflow por elementos internos */
+}
+
+.resultsBar{ /* Contenedor del título y el sorter */
+  display: flex;                                      /* Alineación horizontal */
+  justify-content: space-between;                     /* Título a la izquierda, sort a la derecha */
+  align-items: center;                                /* Centrado vertical */
+  margin-bottom: 16px;                                /* Separación del grid */
+}
+
+.resultsBar__title{ margin: 0; }                      /* Quitamos margen por defecto de h2 */
+
+.resultsBar__sort{ /* Envoltorio del select */
+  display: flex;                                      /* Alineación horizontal */
+  align-items: center;                                /* Centrado vertical */
+  gap: 28px;                                           /* Separación entre label y select */
+  background: var(--shop-card);                       /* Fondo blanco */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 999px;                               /* Pastillita redondeada */
+  padding: .35rem 1rem;                              /* Relleno interno */
+}
+
+.resultsBar__sortLabel{ 
+  margin-left: 0;  
+  font-size: .95rem; }          /* Texto “Por precio” */
+
+.resultsBar__select{ /* Select nativo estilizado lo justo */
+  border: 0;                                          /* Sin borde extra */
+  background: transparent;                            /* Transparente para integrar con el wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto legible */
+  padding-right: .25rem;                              /* Un poco de respiro a la derecha */
+}
+
+/* ===============================
+   Grid de productos (cards)
+   =============================== */
+.products{ /* Contenedor de las cards */
+  display: grid;                                      /* Activamos grid para las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));/* Responsive: mínimo 260px por card */
+  gap: 24px;                                          /* Separación entre tarjetas */
+}
+
+.card{ /* Tarjeta de producto */
+  position: relative;                                  /* Para posicionar el botón de favorito */
+  background: var(--shop-card);                        /* Fondo blanco */
+  border: 1px solid var(--shop-border);                /* Borde suave */
+  border-radius: 16px;                                 /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                      /* Sombra leve */
+  padding: 45px 16px;                                       /* Relleno interno */
+  display: flex;                                       /* Layout vertical simple */
+  flex-direction: column;                              /* Apilado vertical */
+  gap: 12px;                                           /* Separación entre elementos internos */
+}
+
+.card__fav{ /* Botón del corazón */
+  position: absolute;                                  /* Lo fijamos dentro de la card */
+  top: 6px;                                           /* Separación del borde superior */
+  right: 2px;                                         /* Separación del borde derecho */
+  width: 36px;                                         /* Tamaño del botón */
+  height: 36px;                                        /* Alto del botón */
+  display: grid;                                       /* Centrado del icono */
+  place-items: center;                                 /* Centrado exacto */
+  border: 1px solid var(--shop-border);                /* Borde circular suave */
+  border-radius: 50%;                                   /* Forma circular */
+  background: #fff;                                    /* Fondo blanco */
+  color: #9ca3af;                                      /* Color del ícono (gris) */
+  cursor: pointer;                                     /* Cursor de mano */
+}
+
+.card__fav:hover{ color: #111; }                       /* Ícono más oscuro al hover */
+
+.card__favIcon{ width: 18px; height: 18px; }           /* Tamaño del SVG corazón */
+
+.card__img{ /* Imagen del producto */
+  width: 100%;                                         /* Que ocupe todo el ancho disponible */
+  aspect-ratio: 2.5/3;                                   /* Proporción aproximada de la imagen */
+  object-fit: contain;                                  /* Ajuste sin recortar */
+  border-radius: 12px;                                  /* Bordes redondeados suaves */
+  background: #f3f4f6;                                  /* Fondo gris por si la imagen tiene fondo transparente */
+}
+
+.card__title{ /* Nombre del producto */
+  margin: 0;                                           /* Quitamos margen por defecto */
+  text-align: center;                                  /* Centrado como en tu imagen */
+  color: var(--shop-text);                             /* Texto principal */
+  line-height: 1.35;                                   /* Altura de línea cómoda */
+}
+
+.card__price{ /* Precio */
+  margin: .25rem 0 0;                                  /* Margen superior pequeño */
+  text-align: center;                                  /* Centrado */
+  font-size: 1.8rem;                                   /* Tamaño grande */
+  font-weight: 700;                                    /* Negrita */
+  letter-spacing: .3px;                                /* Un poquito de tracking */
+}
+
+.card__cta{ /* Botón “Compra ahora” */
+  margin-top: 4px;                                     /* Pequeño respiro del precio */
+  width: 100%;                                         /* Ancho completo */
+  background: #111111;                                 /* Negro (parecido a tu screenshot) */
+  color: #ffffff;                                      /* Texto blanco */
+  border: 0;                                           /* Sin borde */
+  border-radius: 10px;                                 /* Pastilla suave */
+  padding: .9rem 1rem;                                 /* Relleno cómodo */
+  font-weight: 600;                                    /* Peso medio-alto */
+  cursor: pointer;                                     /* Cursor de mano */
+}
+
+.card__cta:hover{ background: #000; }                  /* Un poco más oscuro al hover */
+
+/* ===============================
+   Responsivo (cuando se estrecha)
+   =============================== */
+@media (max-width: 900px){ /* Tablets y abajo */
+  .shop__container{ grid-template-columns: 1fr; }      /* Filtros arriba, productos debajo */
+  .shop__filters{ position: static; }                  /* Quitamos sticky para móviles */
 }

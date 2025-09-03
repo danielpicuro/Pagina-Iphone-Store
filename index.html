@@ -5,58 +5,145 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi Proyecto</title>
   <link rel="stylesheet" href="css/style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <!-- Encabezado principal -->
   <header>
-    <h1>Mi Página Web Clásica</h1>
-    <p>Bienvenido a mi sitio personal</p>
+    <p>Dispositivos con al menos 6 meses de garantia</p>
   </header>
 
   <!-- Navegación -->
-
-<nav class="navbar">
-  <div class="marca">MARCA</div> <!-- Caja 1 -->
-  
-  <div class="enlaces">
-      <a href="#inicio">Inicio</a>
-      <a href="#acerca">Acerca de</a>
-      <a href="#productos">Productos</a>
-      <a href="#contacto">Contacto</a>
-  </div> <!-- Caja 2 -->
-  
-  <div class="redes">
-    <a href="#"><img src="facebook.png" alt="Facebook"></a>
-    <a href="#"><img src="twitter.png" alt="Twitter"></a>
-    <a href="#"><img src="instagram.png" alt="Instagram"></a>
-  </div> <!-- Caja 3 -->
-</nav>
-
+  <nav class="navbar">
+    <div class="marca">MARCA</div> <!-- Caja 1 -->
+    
+    <div class="enlaces"> <!-- Caja 2 -->
+      <a href="index.html">Inicio</a>
+      <a href="Acerca.html">Acerca de</a>
+      <a href="Producto.html">Productos</a>
+      <a href="Contacto.html">Contacto</a>
+    </div>
+    
+    <div class="redes"> <!-- Caja 3 -->
+      <a href="#"><img src="facebook.png" alt="Facebook"></a>
+      <a href="#"><img src="twitter.png" alt="Twitter"></a>
+      <a href="#"><img src="instagram.png" alt="Instagram"></a>
+    </div>
+  </nav>
 
   <!-- Contenido principal -->
   <main>
-    <section id="inicio">
-      <h2>Inicio</h2>
-      <p>Esta es la sección de inicio donde presento mi sitio.</p>
+    <!-- Hero Slider (carrusel) -->
+    <section class="hero-slide">
+      <!-- Pista que se mueve -->
+      <div class="hero-slides">
+        <!-- Slide 1 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Bienvenido a Mi Tienda</h1>
+            <p>Descubre los mejores productos con calidad garantizada y al mejor precio. ¡Haz tu compra ahora mismo!</p>
+            <button class="hero-slide-btn">Comprar Ahora</button>
+          </div>
+          <div class="hero-slide-image">
+            <img src="https://via.placeholder.com/500" alt="Producto destacado">
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Bienvenido a Mi Tienda 2</h1>
+            <p>Aprovecha nuestras ofertas exclusivas en línea. ¡Haz tu pedido desde casa!</p>
+            <button class="hero-slide-btn">Comprar Ahora</button>
+          </div>
+          <div class="hero-slide-image">
+            <img src="https://via.placeholder.com/500" alt="Producto destacado">
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Bienvenido a Mi Tienda 3</h1>
+            <p>Productos seleccionados especialmente para ti. Calidad y confianza garantizadas.</p>
+            <button class="hero-slide-btn">Comprar Ahora</button>
+          </div>
+          <div class="hero-slide-image">
+            <img src="https://via.placeholder.com/500" alt="Producto destacado">
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicadores (puntitos) -->
+      <div class="carousel-dots">
+        <!-- Se rellenan dinámicamente desde JS -->
+      </div>
     </section>
 
-    <section id="acerca">
+    <!-- Otras secciones -->
+    <section id="acerca" class="seccion-acerca">
+        <div class="contenido-acerca">
       <h2>Acerca de mí</h2>
-      <p>Soy una persona que está aprendiendo desarrollo web. ¡Vamos paso a paso!</p>
+      <p>"Bienvenidos a [Nombre de la tienda], tu lugar de confianza donde encontrarás productos de calidad, atención personalizada y precios justos. Nos apasiona ofrecerte lo mejor, siempre con el compromiso de brindarte una excelente experiencia de compra. ¡Te esperamos!"</p>
+      <button class="acerca-btn">Ver mas</button>
+      </div>
     </section>
 
-    <section id="Productos">
-      <h2>Productos</h2>
-      <ul>
-        <li>Diseño web</li>
-        <li>Desarrollo front-end</li>
-        <li>Optimización SEO</li>
-      </ul>
-    </section>
+<section id="catalogo" class="seccion-catalogo">
+  <h1>CATÁLOGO</h1>
+  <div class="catalogo-content">
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 1">
+      </div>
+      <div class="cat-info">
+        <h2>Producto 1</h2>
+        <p>Descripción breve del producto.</p>
+        <button>Comprar</button>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 2">
+      </div>
+      <div class="cat-info">
+        <h2>Producto 2</h2>
+        <p>Descripción breve del producto.</p>
+        <button>Comprar</button>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 3">
+      </div>
+      <div class="cat-info">
+        <h2>Producto 3</h2>
+        <p>Descripción breve del producto.</p>
+        <button>Comprar</button>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="https://via.placeholder.com/300x200" alt="Producto 4">
+      </div>
+      <div class="cat-info">
+        <h2>Producto 4</h2>
+        <p>Descripción breve del producto.</p>
+        <button>Comprar</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
   </main>
 
-  <!-- Barra lateral (opcional) -->
+  <!-- Barra lateral -->
   <aside>
     <h3>Noticias</h3>
     <p>Próximamente: nuevo curso de CSS disponible.</p>
@@ -67,6 +154,7 @@
     <p>&copy; 2025 Mi Página Web. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Script del carrusel -->
+  <script src="./js/script.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Proyecto</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Encabezado principal -->
+  <header>
+    <h1>Mi Página Web Clásica</h1>
+    <p>Bienvenido a mi sitio personal</p>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="marca">MARCA</div> <!-- Caja 1 -->
+    
+    <div class="enlaces"> <!-- Caja 2 -->
+      <a href="#inicio">Inicio</a>
+      <a href="#acerca">Acerca de</a>
+      <a href="#productos">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    
+    <div class="redes"> <!-- Caja 3 -->
+      <a href="#"><img src="facebook.png" alt="Facebook"></a>
+      <a href="#"><img src="twitter.png" alt="Twitter"></a>
+      <a href="#"><img src="instagram.png" alt="Instagram"></a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main>
+    <!-- =========================================
+     SECCIÓN DE TIENDA (layout: filtros + grid)
+     ========================================= -->
+<section class="shop" id="tienda"><!-- Bloque principal que encapsula todo para no afectar otros estilos -->
+  <div class="shop__container"><!-- Contenedor que define el grid de 2 columnas: filtros + resultados -->
+
+    <!-- ========= Filtros laterales ========= -->
+    <aside class="shop__filters"><!-- Barra lateral de filtros -->
+      <details class="filter" open><!-- <details> da colapso/expand sin JS; "open" = abierto por defecto -->
+        <summary class="filter__summary"><!-- Cabecera clicable del grupo de filtros -->
+          <span>Brand</span><!-- Título del grupo -->
+          <span class="filter__chev" aria-hidden="true">▾</span><!-- Flecha visual (se gira con CSS al abrir) -->
+        </summary>
+
+        <!-- Buscador dentro del grupo "Brand" -->
+        <label class="filter__search"><!-- Envoltorio del input para meter el ícono -->
+          <span class="filter__searchIcon" aria-hidden="true">🔍</span><!-- Ícono de lupa decorativo -->
+          <input type="search" class="filter__searchInput" placeholder="Search" /><!-- Campo de búsqueda -->
+        </label>
+
+        <!-- Lista de checkboxes (marca + cantidad) -->
+        <ul class="filter__list"><!-- Lista de opciones de filtro -->
+          <li><!-- Opción 1 -->
+            <label class="filter__option"><!-- Usamos label para que toda la línea sea clicable -->
+              <input type="checkbox" /><!-- Checkbox marcado por defecto (como en tu screenshot) -->
+              <span class="filter__name">Apple smartphone</span><!-- Nombre de la marca -->
+              <span class="filter__count">110</span><!-- Cantidad a la derecha -->
+            </label>
+          </li>
+          <li><!-- Opción 2 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">Macbook</span>
+              <span class="filter__count">125</span>
+            </label>
+          </li>
+          <li><!-- Opción 3 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">Air phones</span>
+              <span class="filter__count">68</span>
+            </label>
+          </li>
+          <li><!-- Opción 4 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">Battery</span>
+              <span class="filter__count">44</span>
+            </label>
+          </li>
+          <li><!-- Opción 5 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">object</span>
+              <span class="filter__count">36</span>
+            </label>
+          </li>
+          <li><!-- Opción 6 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">object</span>
+              <span class="filter__count">34</span>
+            </label>
+          </li>
+          <li><!-- Opción 7 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">object</span>
+              <span class="filter__count">22</span>
+            </label>
+          </li>
+          <li><!-- Opción 8 -->
+            <label class="filter__option">
+              <input type="checkbox" />
+              <span class="filter__name">object</span>
+              <span class="filter__count">35</span>
+            </label>
+          </li>
+        </ul>
+      </details>
+    </aside>
+
+    <!-- ========= Resultados (cards) ========= -->
+    <section class="shop__results"><!-- Columna principal con título + orden + grid -->
+      <header class="resultsBar"><!-- Barra superior con contador y selector de orden -->
+        <h2 class="resultsBar__title">
+          Selected Products: <strong>85</strong><!-- Contador destacado tal como en la imagen -->
+        </h2>
+        <label class="resultsBar__sort"><!-- Envoltorio para el selector de orden -->
+          <span class="resultsBar__sortLabel">Por precio</span><!-- Etiqueta visible (UI) -->
+          <select class="resultsBar__select" aria-label="Ordenar"><!-- Select real para accesibilidad -->
+            <option value="relevant">Relevancia</option><!-- Opción de ejemplo -->
+            <option value="price-asc">Precio: bajo a alto</option><!-- Opción de ejemplo -->
+            <option value="price-desc">Precio: alto a bajo</option><!-- Opción de ejemplo -->
+            <option value="newest">Más nuevos</option><!-- Opción de ejemplo -->
+          </select>
+        </label>
+      </header>
+
+      <div class="products"><!-- Grid responsive de cards -->
+
+
+      </div><!-- /products -->
+    </section><!-- /shop__results -->
+
+  </div><!-- /shop__container -->
+</section><!-- /shop -->
+
+
+  </main>
+
+  <!-- Barra lateral -->
+  <aside>
+    <h3>Noticias</h3>
+    <p>Próximamente: nuevo curso de CSS disponible.</p>
+  </aside>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy; 2025 Mi Página Web. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script del carrusel -->
+  <script src="./js/script.js"></script>
+</body>
+</html>
