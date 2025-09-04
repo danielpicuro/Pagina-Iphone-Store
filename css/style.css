@@ -46,7 +46,7 @@ body{
 }
 
 /* Establecemos un ancho máximo y centrado para todos los bloques principales */
-header, aside, footer{
+  aside, footer{
   max-width: var(--maxw); /* límite de ancho */
   margin-inline: auto;    /* centra horizontalmente */
   padding-inline: 1rem;   /* espacio lateral interno */
@@ -77,18 +77,29 @@ a:focus-visible{
    HEADER
 ========================================================= */
 header{
-  height: 30px;
-  padding-block: .2rem 1rem; /* espacio arriba y abajo */
+  height: 20px;
+  padding-block: .05rem .2rem; /* espacio arriba y abajo */
   text-align: center;         /* centrar texto */
+  background-color: #000000;
+  justify-content: center;
+  align-items: center;
 }
 header h1{
   /* tamaño de fuente que se adapta al ancho de pantalla */
   font-size: clamp(1.8rem, calc(2.5vw + 1rem), 3rem);
   letter-spacing: .4px; /* separación de letras */
+
 }
 header p{
   color: var(--muted);    /* color gris más suave */
   font-size: .75rem;     /* un poco más grande que normal */
+  font-family: 'Luckiest Guy', cursive;
+  background: linear-gradient(90deg, #ff005a, #ff7b00, #ffee00, #00ff6a, #00c3ff, #7a00ff);
+  animation: gradientMove 3s ease infinite;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 2px 0;
 }
 
 /* =========================================================
@@ -157,6 +168,7 @@ nav .marca {
 ========================================================= */
 main{
   padding-block: 1.6rem; /* espacio arriba y abajo */
+  background-color: white;
 }
 aside{
   padding-block: 1.6rem 2.2rem;
@@ -240,6 +252,8 @@ img{
   height: 100vh;       /* Ocupa toda la altura visible */
   overflow: hidden;    /* Oculta el contenido que se sale */
   margin: 0 auto;
+  background: var(--panel);
+  border-radius: 0%;
 }
 
 .hero-slides {
@@ -256,7 +270,6 @@ img{
   align-items: center;
   padding: 2rem;
   gap: 2rem;
-  box-sizing: border-box;
 }
 
 /* Columna de texto */
@@ -277,7 +290,7 @@ img{
   color: white;
   padding: 0.75rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 0px;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
@@ -460,12 +473,16 @@ img{
   width: 100%;
   box-sizing: border-box;
 }
+.bloques-acerca h1{
+  color: black ;
+  font-size: 40px;
+}
 
 .bloque-main-acerca {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #4b4e53; /* gris claro */
+  background-color: #efefef; /* gris claro */
   border-radius: 12px;
   padding: 1.5rem;
   text-align: left;
@@ -484,6 +501,8 @@ img{
   word-break: break-word;
   max-width: 100%;
   flex: 1;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .icon1-acerca {
@@ -501,20 +520,21 @@ img{
 }
 
 
+
 .contacto-img{
   position: relative;      /* Necesario si agregas texto encima después */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
     background-image:
-    linear-gradient(rgba(180, 170, 170, 0.5), rgba(255, 255, 255, 0.5)),
+    linear-gradient(rgba(254, 254, 254, 0.469), rgba(255, 255, 255, 0.608)),
     url('../img/acerca.jpg');  /* Gradiente oscuro encima */
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center;     /* Centra verticalmente */
   text-align: center;
   color: white; /* Para que el texto sea visible sobre la imagen */ 
-  min-height: 450px;      /* Ocupa el alto completo de la pantalla */
+  min-height: 350px;      /* Ocupa el alto completo de la pantalla */
   overflow: hidden;        /* Por si algo se sale */
   padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
   margin: 0;
@@ -530,21 +550,39 @@ img{
 
 .bloques-contacto {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  gap: 1px;   
+  padding: 0;
   max-width: 700px;
   min-height: 100px;
   width: 100%;
   box-sizing: border-box;
 }
 
+.bloques-contacto a{
+  text-align: centlefer;
+  justify-content: left;
+  align-items: left;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+.bloques-contacto h1{
+color: #000000;
+width: var(--maxw);
+font-size: 40px;
+}
+
 .bloque-main-contacto {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #4b4e53; /* gris claro */
+  background-color: #fbfbfbec; /* gris claro */
   border-radius: 12px;
   padding: 1.5rem;
   text-align: left;
@@ -563,6 +601,7 @@ img{
   word-break: break-word;
   max-width: 100%;
   flex: 1;
+  color: #000;
 }
 
 .icon1-contacto {
@@ -576,7 +615,7 @@ img{
   width: 10rem;              /* Control del tamaño solo desde CSS */
   height: 6rem;
   fill: #f59e0b;            /* Color (naranja dorado) */
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
 
@@ -818,3 +857,138 @@ img{
   .shop__container{ grid-template-columns: 1fr; }      /* Filtros arriba, productos debajo */
   .shop__filters{ position: static; }                  /* Quitamos sticky para móviles */
 }
+
+
+.prod_select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  max-width: 100%;
+  min-height: fit-content;
+  margin: auto;
+  padding :1rem 3rem;
+}
+
+.prod_select__image img {
+  max-width: 550px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.prod_select__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Badge oferta */
+.badge {
+  background: orange;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+/* Marca y título */
+.brand {
+  font-size: 1rem;
+  color: #666;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Precio */
+.price {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.price__current {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #004d40;
+}
+.price__old {
+  text-decoration: line-through;
+  color: #999;
+}
+.price__discount {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+/* Rating */
+.rating {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Botón principal */
+.btn {
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.btn--primary {
+  background: #004d40;
+  color: white;
+  font-weight: bold;
+}
+.btn--primary:hover {
+  background: #00695c;
+}
+
+/* Secciones (color, almacenamiento) */
+.section h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+/* Colores */
+.colors {
+  display: flex;
+  gap: 0.6rem;
+}
+.color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+.color.active {
+  border: 3px solid #004d40;
+}
+.color--blue { background: #1976d2; }
+.color--green { background: #388e3c; }
+.color--black { background: #212121; }
+.color--pink { background: #ec407a; }
+.color--red { background: #d32f2f; }
+.color--white { background: #f5f5f5; }
+
+/* Almacenamiento */
+.storage {
+  display: flex;
+  gap: 1rem;
+}
+.storage__option {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+.storage__option.active {
+  border: 2px solid #004d40;
+  font-weight: bold;
+}
+
