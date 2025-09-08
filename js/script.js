@@ -1,63 +1,85 @@
 // ===================================================================
-// script.js - Código completo comentado línea por línea (para novicios)
+// script.js - Código completo comentado línea por línea (para novatos)
 // ===================================================================
 
-// Escuchamos DOMContentLoaded para ejecutar el código cuando el HTML ya esté listo.
-document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM esté cargado
-  console.log('[APP] DOM cargado - inicializando script'); // Log inicial para saber que el archivo se ejecutó
+// Esperamos a que el DOM esté completamente cargado antes de ejecutar cualquier lógica JS
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('[APP] DOM cargado - inicializando script');
 
+  try {
+    console.log('[PRODUCTS] Inicializando lógica de productos');
 
+    // Variables globales para mantener estado
+    let productos = [];     // Lista completa de productos cargados desde el CSV
+    let currentList = [];   // Lista que se está mostrando actualmente (filtrada/ordenada)
 
-  /* =========================================================
-     Productos, filtros y orden
-     ========================================================= */
-  try { // Nuevo try para la lógica de productos
-    console.log('[PRODUCTS] Inicializando lógica de productos'); // Log inicial
+    // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
+    const urlCSV = "https://productos-fullapplestore.s3.us-east-1.amazonaws.com/catalogo.csv";
 
-    // 1) Datos simulados (esto simula una "BD" local)
-    const productos = [ // Array de objetos; cada objeto representa un producto
-      { id: 1, nombre: "iPhone 14 Pro", precio: 1437, marca: "Apple smartphone", img: "./img/iphone.jpg" },
-      { id: 2, nombre: "Macbook Air M2", precio: 1800, marca: "Macbook", img: "https://placehold.co/360x280" },
-      { id: 3, nombre: "AirPods Pro", precio: 250, marca: "Air phones", img: "https://placehold.co/360x280" },
-      { id: 4, nombre: "Batería externa", precio: 100, marca: "Battery", img: "https://placehold.co/360x280" },
-      { id: 5, nombre: "iPhone 15 Pro", precio: 1600, marca: "Apple smartphone", img: "./img/iphone.jpg" },
-      
-    ];
-    console.log('[PRODUCTS] productos cargados:', productos.length); // Log cantidad de productos
+    // -----------------------------------------------
+    // 1) Función para cargar productos desde CSV (async)
+    // -----------------------------------------------
+    async function cargarProductos() {
+      const response = await fetch(urlCSV);
+      const csvText = await response.text();
 
-    // 2) Referencias DOM (selectores)
-    const contenedor = document.querySelector(".products"); // Contenedor donde renderizaremos las cards
-    if (!contenedor) { // Si no existe el contenedor, no podemos continuar
-      console.error('[PRODUCTS] No se encontró .products en el DOM. Asegúrate que <div class="products"></div> existe en el HTML.');
-      return; // Salimos de la función principal porque no tenemos dónde pintar
+      // Usamos PapaParse para parsear el CSV
+      const { data } = Papa.parse(csvText, {
+        header: true,        // Usa la primera fila como nombres de columna
+        skipEmptyLines: true // Ignora líneas vacías
+      });
+
+      // Convertimos cada fila del CSV a un objeto de producto
+      return data.map(row => ({
+        id: parseInt(row.id),
+        nombre: row.nombre,
+        precio: parseFloat(row.precio),
+        precioold: parseFloat(row.precioold),
+        descripcion: row.descripcion,
+        colores: row.colores,
+        capacidad: parseInt(row.capacidad),
+        marca: row.marca?.trim(),  // Eliminamos espacios en blanco
+        img: row.img,
+      }));
     }
-    console.log('[PRODUCTS] contenedor .products encontrado'); // Confirmación
 
-    const checkboxes = document.querySelectorAll(".filter__option input"); // Todos los checkboxes de filtros
-    console.log('[PRODUCTS] checkboxes encontrados:', checkboxes.length); // Cuántos checkboxes detectamos
+    // -----------------------------------------------
+    // 2) Referencias al DOM
+    // -----------------------------------------------
+    const contenedor = document.querySelector(".products"); // Contenedor de tarjetas
+    if (!contenedor) {
+      console.error('[PRODUCTS] No se encontró .products en el DOM.');
+      return; // Si falta, terminamos aquí
+    }
 
-    const selectOrden = document.querySelector(".resultsBar__select"); // Selector de orden (puede faltar)
-    if (!selectOrden) console.warn('[PRODUCTS] No se encontró .resultsBar__select — el orden no funcionará si falta'); // Advertencia si falta
+    const checkboxes = document.querySelectorAll(".filter__option input"); // Checkboxes de filtros
+    const selectOrden = document.querySelector(".resultsBar__select");     // Selector de orden
+    const contadorEl = document.querySelector('.resultsBar__title strong'); // Contador de productos
 
-    // 3) Estado actual (lista que se muestra)
-    let currentList = [...productos]; // Estado local: lista actualmente visible (copia inicial de productos)
+    // Leer parámetros de URL (para conservar filtros activos)
+    const params = new URLSearchParams(window.location.search);
+    const marcasURL = params.getAll('marca'); // Recuperamos marcas seleccionadas en la URL
 
-    // 4) Elemento contador (para actualizar "Selected Products: X")
-    const contadorEl = document.querySelector('.resultsBar__title strong'); // Buscamos el <strong> donde mostrar el número
-    if (!contadorEl) console.warn('[PRODUCTS] No se encontró <strong> dentro de .resultsBar__title — el contador no se actualizará'); // Advertencia si falta
+    if (!selectOrden) console.warn('[PRODUCTS] No se encontró .resultsBar__select');
+    if (!contadorEl) console.warn('[PRODUCTS] No se encontró <strong> en .resultsBar__title');
 
-    // 5) Función para renderizar productos en el DOM (recibe un array)
+    // -----------------------------------------------
+    // 3) Función para renderizar productos en el DOM
+    // -----------------------------------------------
     function mostrarProductos(lista) {
-      currentList = Array.isArray(lista) ? lista.slice() : []; // Guardamos la lista actual (seguridad con slice)
-      contenedor.innerHTML = ""; // Limpiamos el contenedor antes de pintar
+      currentList = Array.isArray(lista) ? lista.slice() : [];
+      contenedor.innerHTML = ""; // Limpiamos antes de pintar
 
-      // Recorremos la lista y construimos cada card con HTML
       lista.forEach(prod => {
         const html = `
           <article class="card"> 
             <button class="card__fav" aria-label="Añadir a favoritos" title="Añadir a favoritos">
               <svg viewBox="0 0 24 24" class="card__favIcon" aria-hidden="true">
-                <path d="M12.1 21.35l-1.1-.96C5.14 15.86 2 12.99 2 9.5 2 7 4 5 6.5 5c1.54 0 3.04.99 3.57 2.36h.86C11.46 5.99 12.96 5 14.5 5 17 5 19 7 19 9.5c0 3.49-3.14 6.36-8.9 10.89l-1.1.96z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M12.1 21.35l-1.1-.96C5.14 15.86 2 12.99 2 9.5 
+                         2 7 4 5 6.5 5c1.54 0 3.04.99 3.57 2.36h.86
+                         C11.46 5.99 12.96 5 14.5 5 17 5 19 7 
+                         19 9.5c0 3.49-3.14 6.36-8.9 10.89l-1.1.96z"
+                      fill="none" stroke="currentColor" stroke-width="1.5"/>
               </svg>
             </button>
             <img class="card__img" src="${prod.img}" alt="${prod.nombre}" />
@@ -65,71 +87,102 @@ document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM est
             <p class="card__price">S/.<strong>${prod.precio.toFixed(2)}</strong></p>
             <a href="Prod_seleccionado.html?id=${prod.id}" class="card__cta">Compra ahora</a>
           </article>
-        `; // Template string con la estructura de cada tarjeta
-        contenedor.insertAdjacentHTML('beforeend', html); // Insertamos la card al final del contenedor
+        `;
+        contenedor.insertAdjacentHTML('beforeend', html);
       });
 
-      // Si existe el contador, lo actualizamos con la cantidad de elementos mostrados
-      if (contadorEl) {
-        contadorEl.textContent = lista.length; // Actualizamos número en el DOM
-      }
-
-      console.log('[PRODUCTS] renderizados', lista.length, 'productos'); // Log de confirmación
+      if (contadorEl) contadorEl.textContent = lista.length;
+      console.log('[DEBUG] Renderizando:', lista.length, 'productos');
     }
 
-    // 6) Función que aplica los filtros según checkboxes seleccionados
+    // -----------------------------------------------
+    // 4) Función para aplicar filtros
+    // -----------------------------------------------
     function aplicarFiltros() {
-      // Obtenemos los textos (nombres) de las marcas que estén seleccionadas
+      // Extraemos marcas seleccionadas desde los checkboxes
       const marcasSeleccionadas = Array.from(checkboxes)
-        .filter(chk => chk.checked) // Solo los checkboxes marcados
-        .map(chk => { // Mapeamos a su texto visible (el span junto al input)
-          const nameSpan = chk.nextElementSibling; // según tu HTML, nextElementSibling es el <span class="filter__name">
-          return nameSpan ? nameSpan.textContent.trim() : ''; // Si no existe, devolvemos cadena vacía
-        })
-        .filter(Boolean); // Eliminamos cadenas vacías si las hubiera
+        .filter(chk => chk.checked)
+        .map(chk => chk.nextElementSibling?.textContent.trim() || '')
+        .filter(Boolean);
 
-      console.log('[FILTER] marcas seleccionadas:', marcasSeleccionadas); // Log para depurar
+      console.log('[FILTER] marcas seleccionadas:', marcasSeleccionadas);
 
-      // Si no hay filtros seleccionados, mostramos todos los productos
+      // 🔄 Actualizamos los parámetros de la URL sin recargar
+      const params = new URLSearchParams(window.location.search);
+      params.delete('marca'); // Limpiamos antes de añadir
+
+      marcasSeleccionadas.forEach(marca => params.append('marca', marca));
+      const nuevaUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.replaceState({}, '', nuevaUrl);
+
+      // Filtramos productos por marca
       let filtrados = productos;
-      if (marcasSeleccionadas.length > 0) { // Si hay marcas, filtramos por coincidencia exacta
-        filtrados = productos.filter(p => marcasSeleccionadas.includes(p.marca));
+      if (marcasSeleccionadas.length > 0) {
+        productos.forEach(p => console.log(`[DEBUG marca que tiene] '${p.marca}'`));
+        filtrados = productos.filter(p => marcasSeleccionadas.includes(p.marca?.trim()));
       }
 
-      // Aplicamos orden si hay un valor seleccionado en el select de orden
+      // Aplicamos orden si está seleccionado
       const orden = selectOrden ? selectOrden.value : null;
       if (orden === 'price-asc') {
-        filtrados = filtrados.slice().sort((a, b) => a.precio - b.precio); // Orden ascendente por precio
+        filtrados = filtrados.slice().sort((a, b) => a.precio - b.precio);
       } else if (orden === 'price-desc') {
-        filtrados = filtrados.slice().sort((a, b) => b.precio - a.precio); // Orden descendente por precio
+        filtrados = filtrados.slice().sort((a, b) => b.precio - a.precio);
       }
 
-      mostrarProductos(filtrados); // Finalmente renderizamos la lista filtrada y ordenada
+      // Mostramos los productos resultantes
+      mostrarProductos(filtrados);
+
+      // Logs para debugging
+      console.log('[DEBUG] Productos originales:', productos.length);
+      console.log('[DEBUG] Productos filtrados:', filtrados.length);
     }
 
-    // 7) Añadimos event listeners a cada checkbox para que disparen el filtrado al cambiar
-    checkboxes.forEach(chk => chk.addEventListener('change', aplicarFiltros)); // Escucha 'change' en cada checkbox
-    console.log('[PRODUCTS] listeners añadidos a checkboxes'); // Confirmación
+    // -----------------------------------------------
+    // 5) Eventos: checkboxes y orden
+    // -----------------------------------------------
+    checkboxes.forEach(chk =>
+      chk.addEventListener('change', aplicarFiltros)
+    );
+    console.log('[PRODUCTS] listeners añadidos a checkboxes');
 
-    // 8) Si existe el select de orden, añadimos listener para ordenar lo que esté visible
     if (selectOrden) {
-      selectOrden.addEventListener('change', () => { // Al cambiar opción en el select
-        const orden = selectOrden.value; // Leemos la opción
-        console.log('[ORDER] opción elegida:', orden); // Log para depuración
-        let copia = currentList.slice(); // Copiamos currentList (lo que está visible)
-        if (orden === 'price-asc') copia.sort((a, b) => a.precio - b.precio); // Orden asc
-        else if (orden === 'price-desc') copia.sort((a, b) => b.precio - a.precio); // Orden desc
-        mostrarProductos(copia); // Re-render con la lista ordenada
+      selectOrden.addEventListener('change', () => {
+        const orden = selectOrden.value;
+        console.log('[ORDER] opción elegida:', orden);
+        let copia = currentList.slice();
+        if (orden === 'price-asc') copia.sort((a, b) => a.precio - b.precio);
+        else if (orden === 'price-desc') copia.sort((a, b) => b.precio - a.precio);
+        mostrarProductos(copia);
       });
-      console.log('[PRODUCTS] listener añadido al select de orden'); // Confirmación
+      console.log('[PRODUCTS] listener añadido al select de orden');
     }
 
-    // 9) Render inicial: mostramos todos los productos al cargar la página
-    mostrarProductos(productos); // Llamada inicial para poblar la UI
-    console.log('[PRODUCTS] render inicial completado'); // Log final del bloque productos
+    // -----------------------------------------------
+    // 6) Función principal que inicia todo
+    // -----------------------------------------------
+    async function iniciarApp() {
+      productos = await cargarProductos();        // Cargamos CSV
+      currentList = [...productos];               // Copiamos lista
+      aplicarFiltros();                           // Aplicamos filtros si hay
+      mostrarProductos(productos);                // Mostramos todos inicialmente
 
-  } catch (err) { // Si algo falla en la lógica de productos, lo capturamos y mostramos
-    console.error('[PRODUCTS] error en la lógica de productos:', err); // Error en consola
+      // Si se cargó la página con filtros desde la URL, los aplicamos
+      if (marcasURL.length > 0) {
+        checkboxes.forEach(chk => {
+          const span = chk.nextElementSibling;
+          if (span && marcasURL.includes(span.textContent.trim())) {
+            chk.checked = true;
+          }
+        });
+        aplicarFiltros(); // Aplicamos esos filtros
+      }
+    }
+
+    // Iniciamos la app
+    iniciarApp();
+
+  } catch (err) {
+    console.error('[PRODUCTS] error en la lógica de productos:', err);
   }
-
-}); // Fin del event listener DOMContentLoaded
+});

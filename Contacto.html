@@ -59,7 +59,7 @@
                 <svg class="icon2-contacto" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 16 16">
             <path d="M12 2L2 21h20L12 2z" />
         </svg>
-              <a href="">Contactanos</a>
+              <a onclick="contactarProducto()">Contactanos</a>
       </div>
 
     </div>
@@ -70,6 +70,16 @@
   <footer>
     <p>&copy; 2025 Mi Página Web. Todos los derechos reservados.</p>
   </footer>
+  
+
+<script>
+  function contactarProducto() {
+    const numero = "51978581770";
+    const mensaje = `Hola, estoy buscando asesoramiento`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  }
+</script>
 
   <!-- Script del carrusel -->
   <script src="./js/script.js"></script>

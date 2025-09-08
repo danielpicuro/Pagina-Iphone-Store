@@ -3,37 +3,50 @@
   // =============================
 
   // 1. Simulación de productos (puedes venir de un JSON o API)
-  const productos = [
-    {
-      id: 1,
-      nombre: "Apple 13 pro max",
-      precio: 1400.00,
-      precioold: 1500.00,
-      descripcion: "Iphone ligeras y cómodas para correr.",
-      colores: ["Rojo", "Negro", "Blanco"],
-      capacidad: ["128GB", "256GB"],  
-      imagen: "https://via.placeholder.com/400x300"
-    },
-    {
-      id: 2,
-      nombre: "Mochila urbana",
-      precio: 1500.00,
-      precioold: 1500.00,
-      descripcion: "Mochila resistente al agua con múltiples compartimentos.",
-      colores: ["Azul", "Gris", "Verde"],
-      capacidad: ["128GB", "256GB"],
-      imagen: "https://via.placeholder.com/400x300"
-    }
-  ];
 
-  // 2. Obtener el parámetro `id` de la URL
+
+    let productos = [];
+    let colorchoose = "";
+    let capacidadchoose = "";
+    // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
+    const urlCSV = "https://productos-fullapplestore.s3.us-east-1.amazonaws.com/catalogo.csv";
+    // 1) Función para cargar productos desde CSV (async)
+    // -----------------------------------------------
+    async function cargarProductos() {
+      const response = await fetch(urlCSV);
+      const csvText = await response.text();
+
+      // Usamos PapaParse para parsear el CSV
+      const { data } = Papa.parse(csvText, {
+        header: true,        // Usa la primera fila como nombres de columna
+        skipEmptyLines: true // Ignora líneas vacías
+      });
+
+      // Convertimos cada fila del CSV a un objeto de producto
+      return data.map(row => ({
+        id: parseInt(row.id),
+        nombre: row.nombre,
+        precio: parseFloat(row.precio),
+        precioold: parseFloat(row.precioold),
+        descripcion: row.descripcion,
+        colores: row.colores,
+        capacidad: row.capacidad,
+        marca: row.marca?.trim(),  // Eliminamos espacios en blanco
+        img: row.img,
+      }));
+    }
+
+
+    function aplicardetalles() {
+        // 2. Obtener el parámetro `id` de la URL
   // Ejemplo: producto.html?id=2
   const params = new URLSearchParams(window.location.search);
   const productId = parseInt(params.get("id")); // Lo convierte a número
 
   // 3. Buscar el producto correspondiente en el array
   const producto = productos.find(p => p.id === productId);
-
+  console.log("productos",productos)
+  console.log("producto",producto)
 
   // 3️⃣ Renderizar el detalle en la página
   const contenedor = document.getElementById("detalle-producto");
@@ -53,7 +66,7 @@
     contenedor.innerHTML = `
         <!-- Columna izquierda: Imagen -->
       <div class="prod_select__image">
-        <img src="https://via.placeholder.com/500x500" alt="iPhone 13 Blue 128GB">
+        <img src="${producto.img}" alt="Imagen producto">
       </div>
       <div class="prod_select__info">
         
@@ -77,7 +90,8 @@
         <p class="rating">⭐ 4.8 (363)</p>
         
         <!-- Botón principal -->
-        <button class="btn btn--primary">Compra ahora</button>
+        <button id="btn-comprar" class="btn btn--primary">Compra ahora</button>
+
       <!-- QUIERO QUE ESTO SEA DINAMICO -->
       <!-- Selector de color -->
       <div class="section">
@@ -87,7 +101,7 @@
       </div>
       
       <!-- Selector de almacenamiento -->
-      <div class="section">
+      <div class="section" id="seccion-capacidad">
         <h3>Select Storage</h3>
         <div class="storage" id="producto-storage">
         </div>
@@ -96,6 +110,13 @@
         
       </div>
     `;
+
+const btnComprar = document.getElementById("btn-comprar");
+
+btnComprar.addEventListener("click", () => {
+  contactarProducto(producto.nombre, producto.marca, producto.precio, colorchoose, capacidadchoose);
+});
+
 
  // Rellenar colores dinámicamente
   const coloresContainer = document.querySelector("#producto-colores");
@@ -108,8 +129,9 @@ const colorClassMap = {
   "Verde": "green",
   "Rosado": "pink"
 };
+const colores = producto.colores.split(",").map(c => c.trim());
 
-producto.colores.forEach(color => {
+colores.forEach(color => {
   const btn = document.createElement("button");
   const colorKey = colorClassMap[color] || ""; // fallback vacío si no está mapeado
   btn.classList.add("color");
@@ -121,6 +143,8 @@ producto.colores.forEach(color => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".color").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+    colorchoose=color;
+    console.log("color activado",colorchoose);
   });
 
   coloresContainer.appendChild(btn);
@@ -130,23 +154,52 @@ producto.colores.forEach(color => {
   const storageSection = document.querySelector("#seccion-capacidad");
   const storageContainer = document.querySelector("#producto-storage");
 if (producto.capacidad && producto.capacidad.length > 0) {
-  producto.capacidad.forEach(cap => {
+  const capacidad = producto.capacidad.split(",").map(c => c.trim());
+  capacidad.forEach(cap => {
     const btn = document.createElement("button");
     btn.textContent = cap;
     btn.classList.add("storage__option");
-
     btn.addEventListener("click", () => {
       document.querySelectorAll(".storage__option").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
+      capacidadchoose=cap;
+
     });
 
     storageContainer.appendChild(btn);
   });
 } else {
   storageSection.style.display = "none";
+  console.log("entroaqui2")
 }
 
   } else {
     // Si no encuentra producto, mostramos mensaje de error
     nombre.textContent = "Producto no encontrado";
   }
+    
+
+
+
+    }
+
+    function contactarProducto(nombre, marca, precio, colorchoose ,capacidadchoose ) {
+  const numero = "51978581770";
+  const mensaje = `Hola, estoy interesado en el producto:
+📱 *${nombre}*
+🏷️ Marca: *${marca}*
+💵 Precio: S/.${precio}
+🎨 Color: *${colorchoose || 'Sin seleccionar'}*
+ Almacenamietno: *${capacidadchoose || 'Sin seleccionar'}*`;
+
+
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+  }
+      async function startapp() {
+      productos =await cargarProductos();
+      aplicardetalles();
+      console.log("productos startapp",productos);
+      
+    }
+    startapp();

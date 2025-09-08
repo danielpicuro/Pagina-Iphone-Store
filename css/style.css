@@ -571,7 +571,17 @@ img{
   padding: 0;
   margin: 0;
   color: #000;
+  cursor: default;
+  transition: all 0.2s ease;
 }
+
+.bloques-contacto a:hover{
+        color: blue; /* Color típico de enlace */
+      text-decoration: underline;
+      cursor: pointer;
+}
+
+
 .bloques-contacto h1{
 color: #000000;
 width: var(--maxw);
@@ -862,7 +872,7 @@ font-size: 40px;
 .prod_select {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: .1rem;
   align-items: start;
   max-width: 100%;
   min-height: fit-content;
@@ -870,10 +880,25 @@ font-size: 40px;
   padding :1rem 3rem;
 }
 
-.prod_select__image img {
-  max-width: 550px;
+.prod_select__image {
+  display: flex;
+  max-width: 580px;
+  min-height: 500px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  justify-content: center ;           
+  align-items: center;
+  text-align: center;
+  padding: 1rem .5rem;         /* Que ocupe todo el ancho disponible */                          /* Ajuste sin recortar */                              /* Bordes redondeados suaves */
+}
+
+
+
+.prod_select__image img {
+  width: 85%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;                 /* Asegura que no herede comportamiento inline */
 }
 
 .prod_select__info {
