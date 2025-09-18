@@ -123,7 +123,9 @@ nav.navbar {
   position: sticky; /* Hace que la barra se quede "pegada" arriba al hacer scroll */
   top: 0; /* La fija en la parte superior de la ventana */
   z-index: 20; /* Asegura que quede por encima de otros elementos al hacer scroll */
-  background: rgba(17,24,39,.6); /* Fondo semi-transparente para estilo moderno */
+  background: linear-gradient(90deg, rgba(229,231,235,0.25) 0%, rgba(107,114,128,0.3) 25%, rgba(75,85,99,0.4) 60%, rgba(0,74,66,0.5) 100%);
+
+backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-transparente para estilo moderno */
   backdrop-filter: blur(6px); /* Aplica desenfoque a lo que hay detrás del nav (efecto de vidrio) */
   border-top: 1px solid var(--border); /* Línea superior con color definido en la variable --border */
   border-bottom: 1px solid var(--border); /* Línea inferior con color definido en la variable --border */
@@ -161,6 +163,11 @@ nav a:focus-visible{
 nav .marca {
   font-size: 1.2rem; /* Hace que la marca sea un poco más grande */
   font-weight: bold; /* Le da negrita para resaltar */
+}
+nav .marca img {
+  width: 120px;
+  height: 65px;
+  margin: .2rem;
 }
 
 /* =========================================================
@@ -254,6 +261,7 @@ img{
   margin: 0 auto;
   background: var(--panel);
   border-radius: 0%;
+  background: linear-gradient(135deg, #0b1224, #004b42, #164450);
 }
 
 .hero-slides {
@@ -286,28 +294,44 @@ img{
   color: #ccc;
 }
 .hero-slide-btn {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem 2rem;
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   border: none;
-  border-radius: 0px;
-  font-size: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
 }
 .hero-slide-btn:hover {
-  background: var(--primary-strong);
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03);
+}
+
+.hero-slide-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* Columna de imagen */
 .hero-slide-image {
-  flex: 1; /* 1/3 de espacio */
+  flex: 1.5; /* 1/3 de espacio */
   display: flex;
   justify-content: center;
 }
 .hero-slide-image img {
-  max-width: 100%;
+  width: 100%;
+  height: 100%;
   border-radius: 12px;
+    object-fit: cover;   /* ✅ Llena todo el espacio manteniendo proporciones */
 }
 
 /* Puntitos indicadores */
@@ -357,7 +381,51 @@ img{
   border-radius: 8px;
   align-items: center;
 }
+.contenido-acerca h2{
+    font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+.contenido-acerca p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.75;
+  letter-spacing: 0.3px;
+  max-width: 700px;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+.acerca-btn {
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
+}
+.acerca-btn:hover {
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03);
+}
 
+.acerca-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 
 
 
@@ -366,11 +434,21 @@ img{
   padding: 4rem 1.5rem;
   margin: var(--maxmargin);
   text-align: center;
+  background: linear-gradient(145deg,  #eaf6fb, #fff5f0,#eaf6fb);
 }
 .seccion-catalogo h1 {
   text-align: left;
   font-size: 2.5rem;
   margin-bottom: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 /* Contenedor con 4 bloques en fila */
@@ -384,55 +462,94 @@ img{
 
 /* Cada bloque del catálogo */
 .cat {
-  background: #1f2937;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #f1fcfb,#f1f4fb, #f1fcfb);
+  border-radius: 15px;
   overflow: hidden;
   flex: 1 1 calc(25% - 1.5rem); /* 4 columnas */
   display: flex;
   flex-direction: column;
-  min-height: 400px;
+  height: 460px; /* 👈 altura fija */
   max-width: 100%;
 }
 
 /* Parte superior: imagen */
 .cat-img {
-  flex: 1; /* Ocupa el 50% aprox */
+  height: 200px;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 .cat-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Recorta bien la imagen */
+  object-fit: contain;
   display: block;
 }
 
 /* Parte inferior: texto */
 .cat-info {
-  flex: 1;
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;    /* vertical, abajo */
   gap: 0.8rem;
   color: #eee;
+  height: 100%;
 }
+
 .cat-info h2 {
   margin: 0;
   font-size: 1.25rem;
+  background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .cat-info p {
+  
   margin: 0;
   font-size: 0.95rem;
+    background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .cat-info button {
-  background: var(--primary);
-  color: white;
-  padding: 0.5rem 1rem;
+  margin-top: auto;  
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
   cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
+  align-self: center; /* centro horizontal */
+  margin-top: auto;   /* empuja hacia abajo */
+
 }
 .cat-info button:hover {
-  background: var(--primary-strong);
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03) translateX(-1%);
+
+}
+.cat-info button:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.acerca-main{
+    display: flex;           /* activa Flexbox */
+  flex-direction: column;  /* organiza los hijos en columna */
+  gap: 6rem;  
+  
 }
 
 .acerca-img{
@@ -448,18 +565,35 @@ img{
   align-items: center;     /* Centra verticalmente */
   text-align: center;
   color: white; /* Para que el texto sea visible sobre la imagen */ 
-  min-height: 450px;           /* Ocupa el alto completo de la pantalla */
+  min-height: 700px;           /* Ocupa el alto completo de la pantalla */
   overflow: hidden;        /* Por si algo se sale */
   padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
   margin: 0;
-  
+}
+
+.acerca-titulo-imagen{
+    color: #ffffff; /* negro suave, para no saturar */
+  font-size: 5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* misma familia para coherencia */
+  font-weight: 800; /* un poco más pesado para destacar */
+  letter-spacing: 0.08em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.5); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+   animation: fadeInUp 1.2s ease-in-out;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .cuadro-acerca {
   display: flex;
-  flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 3rem;
 }
 
 .bloques-acerca {
@@ -473,19 +607,34 @@ img{
   width: 100%;
   box-sizing: border-box;
 }
-.bloques-acerca h1{
-  color: black ;
-  font-size: 40px;
+
+.bloques-acerca p{
+  color: #111; /* negro suave, para no saturar */
+  font-size: 2.5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans- serif; /* misma familia para coherencia */
+  font-weight: 700; /* un poco más pesado para destacar */
+  letter-spacing: 0.05em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+}
+
+.bloques-acerca p:hover {
+  color: #01272e; /* el mismo azul encantador para coherencia */
+  text-shadow: 2px 2px 5px rgba(0,95,115,0.4);  
 }
 
 .bloque-main-acerca {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #efefef; /* gris claro */
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
   text-align: left;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   max-width: 700px;
   width: 100%;
   min-height: 100px;
@@ -493,32 +642,62 @@ img{
   gap: 1rem;
   box-sizing: border-box;
   flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bloque-main-acerca:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-acerca::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #f59e0b;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  opacity: 0.2;
 }
 
 .bloque-main-acerca p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
   word-break: break-word;
   max-width: 100%;
   flex: 1;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
 }
 
 .icon1-acerca {
-  width: 2rem;              /* Control del tamaño solo desde CSS */
-  height: 2rem;
-  fill: #f59e0b;            /* Color (naranja dorado) */
-  flex-shrink: 0; 
+  width: 3rem;
+  height: 3rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.ceo-acerca {
+  flex-shrink: 0;
 }
 
-.icon2-acerca {
-  width: 10rem;              /* Control del tamaño solo desde CSS */
-  height: 6rem;
-  fill: #f59e0b;            /* Color (naranja dorado) */
-  flex-shrink: 0; 
+.ceo-acerca img{
+  border-radius: 50%;
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
+  border: 5px solid transparent;
+  background: linear-gradient(45deg, #f59e0b, #fbbf24) padding-box;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
+.ceo-acerca img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
 
 
 .contacto-img{
@@ -528,13 +707,13 @@ img{
   background-repeat: no-repeat;
     background-image:
     linear-gradient(rgba(254, 254, 254, 0.469), rgba(255, 255, 255, 0.608)),
-    url('../img/acerca.jpg');  /* Gradiente oscuro encima */
+    url('../img/contactanos.jpg');  /* Gradiente oscuro encima */
   display: flex;
   justify-content: center; /* Centra horizontalmente */
   align-items: center;     /* Centra verticalmente */
   text-align: center;
   color: white; /* Para que el texto sea visible sobre la imagen */ 
-  min-height: 350px;      /* Ocupa el alto completo de la pantalla */
+  min-height: 700px;      /* Ocupa el alto completo de la pantalla */
   overflow: hidden;        /* Por si algo se sale */
   padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
   margin: 0;
@@ -550,36 +729,19 @@ img{
 
 .bloques-contacto {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1px;   
-  padding: 0;
+  padding: 1rem;
   max-width: 700px;
   min-height: 100px;
   width: 100%;
   box-sizing: border-box;
 }
 
-.bloques-contacto a{
-  text-align: centlefer;
-  justify-content: left;
-  align-items: left;
-  padding: 0;
-  text-decoration: none;
-  color: inherit;
-  font-weight: bold;
-  padding: 0;
-  margin: 0;
-  color: #000;
-  cursor: default;
-  transition: all 0.2s ease;
-}
 
-.bloques-contacto a:hover{
-        color: blue; /* Color típico de enlace */
-      text-decoration: underline;
-      cursor: pointer;
-}
+
+
 
 
 .bloques-contacto h1{
@@ -592,10 +754,11 @@ font-size: 40px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background-color: #fbfbfbec; /* gris claro */
-  border-radius: 12px;
-  padding: 1.5rem;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
   text-align: left;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   max-width: 700px;
   width: 100%;
   min-height: 100px;
@@ -603,22 +766,99 @@ font-size: 40px;
   gap: 1rem;
   box-sizing: border-box;
   flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bloque-main-contacto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-contacto::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #1f1a12;
+  position: absolute;
+  top: 1px;
+  left: 115px;
+  opacity: 0.2;
 }
 
 .bloque-main-contacto p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
   word-break: break-word;
   max-width: 100%;
   flex: 1;
-  color: #000;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
+}
+.bloques-contacto-enlace{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: fit-content; /* O un ancho definido si quieres */
+}
+.bloques-contacto-enlace img{
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+  max-width: 100%;  /* que no sobresalga del contenedor */
+  margin-left: 40px; 
+  width: auto;      /* mantiene la proporción */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* para que se note que es interactivo */
+}
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.bloques-contacto-enlace img:hover,
+.bloques-contacto-enlace img:focus {
+  transform: scale(1.1);
+  outline: none;
 }
 
+.bloques-contacto-enlace p {
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem; /* un poco más grande, legible */
+  font-family: 'Montserrat', 'Roboto', sans-serif; /* tipografía moderna */
+  letter-spacing: 0.5px; /* espacio ligero entre letras */
+  text-decoration: none;
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  transition: 
+    color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.bloques-contacto-enlace p:hover,
+.bloques-contacto-enlace p:focus {
+  color: #0056b3;
+  transform: scale(1.05);
+  outline: none;
+}
+
+
 .icon1-contacto {
-  width: 2rem;              /* Control del tamaño solo desde CSS */
-  height: 2rem;
-  fill: #f59e0b;            /* Color (naranja dorado) */
-  flex-shrink: 0; 
+  width: 6rem;
+  height: 4rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .icon2-contacto {
@@ -653,25 +893,27 @@ font-size: 40px;
 .shop{ /* Área principal de la sección tienda */
   padding: 1rem;                                      /* Respiro lateral en móviles */
   background: var(--shop-bg);                        /* Fondo global de la tienda */
-  color: var(--shop-text);                           /* Color base del texto */
+  color: var(--shop-text);  
+  margin: 0px;                         /* Color base del texto */
 }
 
 .shop__container{ /* Grid que reparte filtros + resultados */
-  max-width: 1200px;                                  /* Ancho máximo para un buen line-length */
+  max-width: 1200px;      
+  max-width: 95%;                            /* Ancho máximo para un buen line-length */
   margin-inline: auto;                                /* Centrado horizontal */
   display: grid;                                      /* Activamos CSS Grid */
-  grid-template-columns: 260px 1fr;                   /* Columna fija de 260px + columna flexible */
-  gap: 60px;                                          /* Separación entre columnas */
+  grid-template-columns: 150px 1fr;                   /* Columna fija de 260px + columna flexible */
+  gap: 180px;                                          /* Separación entre columnas */
 }
 
 /* ===============================
    Filtros laterales (aside)
    =============================== */
-.shop__filters{ /* Columna izquierda */
+.shop__filters{ /* Columna izquierda */ 
   position: sticky;                                   /* Se queda fija al hacer scroll */
   top: 88px;                                          /* Ajusta según alto de tu navbar */
-  align-self: start;                                  /* Empieza arriba del contenedor */
-  margin-left: -80px;                                 /* Mueve 20px a la izquierda */
+  align-self: start;                             /* Empieza arriba del contenedor */
+                      /* Mueve 20px a la izquierda */
 }
 
 .filter{ /* Bloque "Brand" basado en <details> */
@@ -756,7 +998,8 @@ font-size: 40px;
   display: flex;                                      /* Alineación horizontal */
   justify-content: space-between;                     /* Título a la izquierda, sort a la derecha */
   align-items: center;                                /* Centrado vertical */
-  margin-bottom: 16px;                                /* Separación del grid */
+  margin-bottom: 16px;
+  background-color: #f3f4f6;                                /* Separación del grid */
 }
 
 .resultsBar__title{ margin: 0; }                      /* Quitamos margen por defecto de h2 */
@@ -909,13 +1152,21 @@ font-size: 40px;
 
 /* Badge oferta */
 .badge {
-  background: orange;
-  color: white;
   font-size: 0.9rem;
   font-weight: bold;
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
   width: fit-content;
+}
+.badge--disponible {
+  background-color: #ecfdf5; /* verde muy claro */
+  color: #047857; /* verde oscuro */
+}
+
+/* Estado: Agotado */
+.badge--agotado {
+  background-color: #fef2f2; /* rojo muy claro */
+  color: #b91c1c; /* rojo fuerte */
 }
 
 /* Marca y título */
@@ -945,8 +1196,10 @@ font-size: 40px;
   color: #999;
 }
 .price__discount {
-  color: #d32f2f;
-  font-weight: bold;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #6b7280; /* Gris neutro, tono bajo */
+  opacity: 0.7;
 }
 
 /* Rating */
@@ -999,6 +1252,12 @@ font-size: 40px;
 .color--pink { background: #ec407a; }
 .color--red { background: #d32f2f; }
 .color--white { background: #f5f5f5; }
+.color--skyblue          { background-color: #87ceeb; }
+.color--gold             { background-color: #f1c40f; }
+.color--purple           { background-color: #9b59b6; }
+.color--sierra-blue      { background-color: #4b6cb7; } /* o personaliza */
+.color--natural-titanium { background-color: #95a5a6; }
+.color--desert           { background-color: #d2b48c; } /* similar a tan */
 
 /* Almacenamiento */
 .storage {

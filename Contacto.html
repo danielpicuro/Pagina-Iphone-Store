@@ -17,7 +17,7 @@
 
   <!-- Navegación -->
   <nav class="navbar">
-    <div class="marca">MARCA</div> <!-- Caja 1 -->
+    <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
     
     <div class="enlaces"> <!-- Caja 2 -->
       <a href="index.html">Inicio</a>
@@ -27,9 +27,9 @@
     </div>
     
     <div class="redes"> <!-- Caja 3 -->
-      <a href="#"><img src="facebook.png" alt="Facebook"></a>
-      <a href="#"><img src="twitter.png" alt="Twitter"></a>
-      <a href="#"><img src="instagram.png" alt="Instagram"></a>
+      <a href="https://wa.me/51978581770"><img src="./img/whatsapp-nav.png" alt="WhatsApp"></a>
+      <a href="https://www.tiktok.com/@fullapple.store"><img src="./img/tiktok.png" alt="Tiktok"></a>
+      <a href="https://www.instagram.com/fullapple.stor3/"><img src="./img/instagram.png" alt="Instagram"></a>
     </div>
   </nav>
 
@@ -38,29 +38,38 @@
     <div class="contacto-main">
     <div class="contacto-img-bloque">
 <section class="contacto-img">
-  <h1></h1>
+  <div class="acerca-titulo-imagen">Buscas asesoramiento</div>
 </section>
 
     </div>
     <div class="cuadro-contacto">
       <div class="bloques-contacto">
-        <h1>Buscas asesoramiento</h1>
+
       </div>
       <div class="bloques-contacto">
         <div class="bloque-main-contacto">
-                  <svg class="icon1-contacto" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24">
-            <path d="M12 2L2 21h20L12 2z" />
-        </svg>
+                  <img class="icon1-contacto" src="./img/logo-applestore.png">
+        </img>
           <p>Sabemos que cada proyecto es único, y por eso nuestro enfoque comienza con escuchar.. Estamos aquí para ayudarte a crecer, paso a paso, con el respaldo de nuestra experiencia. Comunicate a nuestro canal de atención</p>
         </div>
         
       </div>
-      <div class="bloques-contacto">
-                <svg class="icon2-contacto" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 16 16">
-            <path d="M12 2L2 21h20L12 2z" />
-        </svg>
-              <a onclick="contactarProducto()">Contactanos</a>
-      </div>
+
+      <script>  function asesoriaProducto() {
+  const numero = "51978581770";
+  const mensaje = `Hola, necesito asesoria!`;
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+  }</script>
+
+<a onclick="asesoriaProducto()" class="bloques-contacto-enlace-link">
+  <div class="bloques-contacto-enlace">
+    <div class="icon2-contacto">
+      <img src="./img/whatsapp.png" alt="WhatsApp">
+    </div>
+    <p>Contactanos</p>
+  </div>
+</a>
 
     </div>
     </div>

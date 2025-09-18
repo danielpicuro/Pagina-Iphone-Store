@@ -9,7 +9,7 @@
     let colorchoose = "";
     let capacidadchoose = "";
     // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
-    const urlCSV = "https://productos-fullapplestore.s3.us-east-1.amazonaws.com/catalogo.csv";
+    const urlCSV = "./catalogo.csv";
     // 1) Función para cargar productos desde CSV (async)
     // -----------------------------------------------
     async function cargarProductos() {
@@ -19,7 +19,11 @@
       // Usamos PapaParse para parsear el CSV
       const { data } = Papa.parse(csvText, {
         header: true,        // Usa la primera fila como nombres de columna
-        skipEmptyLines: true // Ignora líneas vacías
+        skipEmptyLines: true, // Ignora líneas vacías
+    dynamicTyping: true,
+    transformHeader: h => h.trim(),
+    quoteChar: '"',
+    delimiter: ';'
       });
 
       // Convertimos cada fila del CSV a un objeto de producto
@@ -33,6 +37,7 @@
         capacidad: row.capacidad,
         marca: row.marca?.trim(),  // Eliminamos espacios en blanco
         img: row.img,
+        stock: parseFloat(row.stock)
       }));
     }
 
@@ -58,7 +63,18 @@
   const precioold = document.querySelector("#producto-precioold");
   const descripcion = document.querySelector("#producto-descripcion");
   const coloresContainer = document.querySelector("#producto-colores");
+  let dispStock =  'Disponible';
+  if (producto.stock <= 0){
+    dispStock = 'Agotado'
+  }
+  console.log(dispStock);
+  let claseEstado = '';
 
+if (dispStock.toLowerCase() === 'disponible') {
+  claseEstado = 'badge--disponible';
+} else if (dispStock.toLowerCase() === 'agotado') {
+  claseEstado = 'badge--agotado';
+}
   // 5. Renderizar la información si el producto existe
   if (producto) {
 
@@ -71,7 +87,7 @@
       <div class="prod_select__info">
         
         <!-- Etiqueta de oferta -->
-        <span class="badge">DISPONIBLE</span>
+        <span class="badge ${claseEstado}">${dispStock}</span>
         
         <!-- Marca -->
         <p class="brand">Apple</p>
@@ -83,7 +99,7 @@
         <div class="price">
           <span class="price__current">S/. ${producto.precio}</span>
           <span class="price__old">S/. ${producto.precioold}</span>
-          <span class="price__discount">${producto.dscto}</span>
+          <span class="price__discount">${producto.stock} uds disp</span>
         </div>
         
         <!-- Rating -->
@@ -127,8 +143,16 @@ const colorClassMap = {
   "Blanco": "white",
   "Azul": "blue",
   "Verde": "green",
-  "Rosado": "pink"
+  "Rosado": "pink",
+  "Celeste": "skyblue",
+  "Dorado": "gold",
+  "Morado": "purple",
+  "Azul Sierra": "sierra-blue",         // Equivalente a "Sierra Blue"
+  "Titanio Natural": "natural-titanium",
+  "Desierto": "desert"
 };
+
+console.log(producto.colores);
 const colores = producto.colores.split(",").map(c => c.trim());
 
 colores.forEach(color => {
@@ -163,7 +187,7 @@ if (producto.capacidad && producto.capacidad.length > 0) {
       document.querySelectorAll(".storage__option").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       capacidadchoose=cap;
-
+      console.log('Alacenamiento escogido', capacidadchoose);
     });
 
     storageContainer.appendChild(btn);
@@ -203,3 +227,4 @@ if (producto.capacidad && producto.capacidad.length > 0) {
       
     }
     startapp();
+
