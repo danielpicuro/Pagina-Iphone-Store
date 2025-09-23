@@ -1,31 +1,22 @@
-id;nombre;precio;precioold;descripcion;colores;capacidad;marca;img;stock
-1;iPhone 19;1050;1200;Garantía 12 meses;Blanco, Negro;64GB,128GB;Apple smartphone;iPhone 11.png;5
-2;iPhone 11;1150;1300;Garantía 12 meses;Blanco, Negro;128GB;Apple smartphone;iPhone 11.png;6
-3;iPhone 11 Pro;1350;1500;Garantía 12 meses;Blanco;64GB;Apple smartphone;iPhone 11 Pro.png;2
-4;iPhone 12;1300;1450;Garantía 12 meses;Azul, Blanco, Negro;64GB;Apple smartphone;iPhone 12.png;1
-5;iPhone 12;1400;1550;Garantía 12 meses;Azul, Blanco, Negro;128GB;Apple smartphone;iPhone 12.png;3
-6;iPhone 12 Pro;1750;1900;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB;Apple smartphone;iPhone 12 Pro.png;5
-7;iPhone 12 Pro;1850;2000;Garantía 12 meses;Dorado, Azul Sierra, Negro;256GB;Apple smartphone;iPhone 12 Pro.png;5
-8;iPhone 12 Pro Max;2050;2200;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB;Apple smartphone;iPhone 12 Pro Max.png;5
-9;iPhone 12 Pro Max;2150;2300;Garantía 12 meses;Dorado, Azul Sierra, Negro;256GB;Apple smartphone;iPhone 12 Pro Max.png;5
-10;iPhone 13;1800;1950;Garantía 12 meses;Blanco, Azul, Negro;128GB;Apple smartphone;iPhone 13.png;6
-11;iPhone 13 Pro;2400;2550;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB;Apple smartphone;iPhone 13 Pro.png;2
-12;iPhone 13 Pro;2500;2650;Garantía 12 meses;Dorado, Azul Sierra, Negro;256GB;Apple smartphone;iPhone 13 Pro.png;1
-13;iPhone 13 Pro Max;2700;2850;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB;Apple smartphone;iPhone 13 Pro Max.png;3
-14;iPhone 13 Pro Max;2850;3000;Garantía 12 meses;Dorado, Azul Sierra, Negro;256GB;Apple smartphone;iPhone 13 Pro Max.png;5
-15;iPhone 14;2000;2150;Garantía 12 meses;Blanco, Celeste, Negro;128GB;Apple smartphone;iPhone 14.png;6
-16;iPhone 14 Pro;2600;2750;Garantía 12 meses;Dorado, Morado, Negro, Blanco;128GB;Apple smartphone;iPhone 14 Pro.png;2
-17;iPhone 14 Pro;2700;2850;Garantía 12 meses;Dorado, Morado, Negro, Blanco;256GB;Apple smartphone;iPhone 14 Pro.png;1
-18;iPhone 14 Pro Max;3000;3150;Garantía 12 meses;Dorado, Morado, Negro, Blanco;128GB;Apple smartphone;iPhone 14 Pro Max.png;3
-19;iPhone 14 Pro Max;3200;3350;Garantía 12 meses;Dorado, Morado, Negro, Blanco;256GB;Apple smartphone;iPhone 14 Pro Max.png;5
-20;iPhone 15;2400;2550;Garantía 12 meses;Blanco, Negro, Celeste;128GB;Apple smartphone;iPhone 15.png;6
-21;iPhone 15 Pro;2900;3050;Garantía 12 meses;Titanio Natural, Negro, Blanco;128GB;Apple smartphone;iPhone 15 Pro.png;2
-22;iPhone 15 Pro;3100;3250;Garantía 12 meses;Titanio Natural, Negro, Blanco;256GB;Apple smartphone;iPhone 15 Pro.png;1
-23;iPhone 15 Pro Max;3550;3700;Garantía 12 meses;Titanio Natural, Negro, Blanco;256GB;Apple smartphone;iPhone 15 Pro Max.png;3
-24;iPhone 16;2850;3000;Garantía 12 meses;Azul, Negro, Blanco;128GB;Apple smartphone;iPhone 16.png;5
-25;iPhone 16 Pro;3600;3750;Garantía 12 meses;Titanio Natural, Negro, Desierto;128GB;Apple smartphone;iPhone 16 Pro.png;6
-26;iPhone 16 Pro;3700;3850;Garantía 12 meses;Titanio Natural, Negro, Desierto;256GB;Apple smartphone;iPhone 16 Pro.png;2
-27;iPhone 16 Pro Max;4400;4550;Garantía 12 meses;Titanio Natural, Negro, Desierto;256GB;Apple smartphone;iPhone 16 Pro Max.png;1
-28;Macbook 4;4400;4550;Garantía 12 meses;Titanio Natural, Negro, Desierto;1TB;Macbook;Macbook 4.png;0
-29;Macbook 5;4400;4550;Garantía 12 meses;Azul, Negro, Desierto;1TB;Macbook;Macbook 4.png;3
-29;Bicicleta Montañera;4400;4550;Garantía 12 meses;Azul, Negro, Desierto;kilometraje 50km;Bicicleta;Bicleta.png;1
+id;nombre;precio;precioold;descripcion;colores;capacidad;marca;img;stock;pantalla;ram
+1;iPhone 11;1050 , 1150;1150 , 1300;Garantía 12 meses;Blanco, Negro;64GB,128GB;Apple smartphone;iPhone 11.png;5;10 pulgadas;
+2;iPhone 11 Pro;1350;1500;Garantía 12 meses;Blanco;64GB;Apple smartphone;iPhone 11 Pro.png;2;;
+3;iPhone 12;1300 , 1400;1450 , 1550;Garantía 12 meses;Azul, Blanco, Negro;64GB,128GB;Apple smartphone;iPhone 12.png;1;;
+4;iPhone 12 Pro;1700 , 1800;1900 , 2000;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB,256GB;Apple smartphone;iPhone 12 Pro.png;5;;
+5;iPhone 12 Pro Max;2000 , 2150;2200 , 2350;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB,256GB;Apple smartphone;iPhone 12 Pro Max.png;5;;
+6;iPhone 13;1699 , 1850;1950 , 2050;Garantía 12 meses;Blanco, Azul, Negro;128GB,256GB;Apple smartphone;iPhone 13.png;6;;
+7;iPhone 13 Pro;2299 , 2399;2450 , 2550;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB,256GB;Apple smartphone;iPhone 13 Pro.png;2;;
+8;iPhone 13 Pro Max;2499 , 2599;2700 ,  2800;Garantía 12 meses;Dorado, Azul Sierra, Negro;128GB,256GB;Apple smartphone;iPhone 13 Pro Max.png;3;;
+9;iPhone 13 Pro Max;2599;3000;Garantía 12 meses;Dorado, Azul Sierra, Negro;256GB;Apple smartphone;iPhone 13 Pro Max.png;5;;
+10;iPhone 14 Pro;2499 , 2599;2700 , 2900;Garantía 12 meses;Dorado, Morado, Negro, Blanco;128GB,256GB;Apple smartphone;iPhone 14 Pro.png;2;;
+11;iPhone 14 Pro Max;2899 , 2999 , 3099;3400 , 3500 , 3600;Garantía 12 meses;Dorado, Morado, Negro, Blanco;128GB,256GB,512GB;Apple smartphone;iPhone 14 Pro Max.png;3;;
+12;iPhone 15;2400;2600;Garantía 12 meses;Blanco, Negro, Celeste, Rosado;128GB;Apple smartphone;iPhone 15.png;6;;
+13;iPhone 15 Pro;2900 , 3000;3100 , 3200;Garantía 12 meses;Titanio Natural, Negro, Blanco;128GB,256GB;Apple smartphone;iPhone 15 Pro.png;2;;
+14;iPhone 15 Pro Max;3499 , 3649;3800 , 3950;Garantía 12 meses;Titanio Natural, Negro, Blanco;256GB,512GB;Apple smartphone;iPhone 15 Pro Max.png;3;;
+15;iPhone 16;2800;3000;Garantía 12 meses;Azul, Negro, Blanco, Rosado;128GB;Apple smartphone;iPhone 16.png;5;;
+16;iPhone 16 Pro;3600 , 3750;3850 , 4000;Garantía 12 meses;Titanio Natural, Negro, Desierto;128GB,256GB;Apple smartphone;iPhone 16 Pro.png;6;;
+17;iPhone 16 Pro Max;4200 , 4350;4600 , 4750;Garantía 12 meses;Titanio Natural, Negro, Desierto;256GB,512GB;Apple smartphone;iPhone 16 Pro Max.png;1;;
+18;Macbook Pro M1 2020 ;2450;2700;Garantía 12 meses;Space Gray, Space Black, Medianoche;256GB;Macbook Pro;Macbook 4.png;3;;8GB
+19;Macbook Pro M2 2022;3250;3700;Garantía 12 meses;Space Gray, Space Black, Medianoche;256GB;Macbook Pro;;;;8GB
+20;Macbook Air M1 2020;2250;2500;Garantía 12 meses;Space Gray, Space Black, Medianoche;256GB;Macbook Air;;;;8GB
+21;Macbook Air M1 2022;2850;3200;Garantía 12 meses;Space Gray, Space Black, Medianoche;256GB;Macbook Air;;;;8GB

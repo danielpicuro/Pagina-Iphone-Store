@@ -101,7 +101,7 @@ header p{
   text-align: center;
   margin: 2px 0;
 }
-
+/* INDEX.HTML
 /* =========================================================
    NAVEGACIÓN
 ========================================================= */
@@ -130,7 +130,18 @@ backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-
   border-top: 1px solid var(--border); /* Línea superior con color definido en la variable --border */
   border-bottom: 1px solid var(--border); /* Línea inferior con color definido en la variable --border */
 }
-
+/* Orden desktop */
+.marca { order: 1; }
+.enlaces { order: 2; }
+.redes { order: 3; }
+/* Botón hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
 
 .enlaces {
   flex: 1; /* Ocupa todo el espacio central posible */
@@ -149,7 +160,7 @@ backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-
 
 nav a{
   display: inline-block;       /* para poder dar padding */
-  padding: .5rem .9rem;        /* espacio interno */
+  padding: .5rem .5rem;        /* espacio interno */
   border-radius: 999px;        /* forma de pastilla/redondeado */
   border: 1px solid transparent; /* borde invisible */
   transition: background 0.3s ease, color 0.3s ease;
@@ -167,7 +178,7 @@ nav .marca {
 nav .marca img {
   width: 120px;
   height: 65px;
-  margin: .2rem;
+  margin: 0rem;
 }
 
 /* =========================================================
@@ -346,7 +357,7 @@ img{
 .carousel-dots .dot {
   width: 12px;
   height: 12px;
-  background: gray;
+  baccatalogokground: gray;
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
@@ -430,7 +441,7 @@ img{
 
 
 
-.seccion-catalogo {
+.seccion- {
   padding: 4rem 1.5rem;
   margin: var(--maxmargin);
   text-align: center;
@@ -544,6 +555,192 @@ img{
   transform: scale(0.98);
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
+
+/* INDEX END*/
+
+
+
+
+
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN PARA CELULARES Y TABLETS
+========================================================= */
+@media (max-width: 768px) {
+
+    .marca { order: 2; }
+  .enlaces { order: 1; }
+  .redes { order: 3; }
+
+  /* Ajustes para header */
+  header h1 {
+    font-size: 1.5rem;
+  }
+  header p {
+    font-size: 0.65rem;
+  }
+
+  /* Navbar: Menú más compacto y en columna si es necesario */
+  nav.navbar {
+    display: flex;
+  justify-content: space-between; /* Distribuye los elementos dejando espacio entre ellos (extremos separados) */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+    padding: 0.25rem 0.5rem;
+    gap: 3rem;
+    align-items: center;
+    
+
+  }
+  nav .marca img {
+
+  width: 90px;
+  height: 40px;
+  margin-top: 0rem;
+  margin-left: 4.5rem;
+}
+.redes {
+    display: flex;
+    margin: 0.1rem 0;
+    gap: .01rem;
+  }
+
+  .redes a img{
+  width: 12px; /* Tamaño uniforme de iconos */
+  margin-left: 0px; /* Espacio entre iconos */
+  
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 1rem;
+  }
+  
+
+
+  .enlaces {
+        position: absolute;
+    top: 100%; /* Justo debajo del nav */
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+      z-index: 999; /* Para que esté por encima de todo */
+    background: linear-gradient(135deg, #004b42,#0b1224, #164450);
+    border: 2px solid var(--border);
+    padding: 1rem;
+    margin-top: 0rem;
+    gap: 0.5rem;
+        border-top: 1px solid var(--border);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .enlaces.active {
+    display: flex; /* Se muestra cuando tiene clase 'active' */
+  }
+
+  .enlaces a {
+    display: block;
+    margin: 0;
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  /* Hero Slide */
+  .hero-slide {
+    height: auto; /* importante para evitar corte en móviles */
+    padding: 2rem 1rem;
+  }
+
+  .hero-slide-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .hero-slide-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-slide-text p {
+    font-size: 1rem;
+  }
+
+  .hero-slide-image {
+    width: 100%;
+  }
+
+  .hero-slide-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Acerca de */
+  .seccion-acerca {
+    height: auto;
+    padding: 4rem rem;
+    margin-inline-start: .5rem;
+    margin-inline-end: .5rem;
+    margin-block: 1rem;
+  }
+.contenido-acerca {
+  gap: 1.5rem;  
+  max-width: 900px;  
+  padding: .5rem;
+  margin: 0 auto;
+  border-radius: 8px;
+  align-items: center;
+}
+  .contenido-acerca h2 {
+    font-size: 2rem;
+  }
+
+  .contenido-acerca p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Catálogo - de 4 a 1 o 2 columnas */
+  .catalogo-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .cat {
+    flex: 1 1 100%;
+    height: auto;
+  }
+
+  .cat-img {
+    height: 180px;
+  }
+
+  .cat-info h2,
+  .cat-info p {
+    font-size: 1rem;
+  }
+
+  .cat-info button {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .acerca-main{
     display: flex;           /* activa Flexbox */
@@ -700,6 +897,77 @@ img{
 }
 
 
+
+/*MOVILES ACERCA*/
+
+@media (max-width: 768px) {
+  .acerca-main{
+    gap: .5rem;
+  }
+  .acerca-titulo-imagen {
+    font-size: 3rem; /* más pequeño en móvil */
+    padding: 1rem;
+  }
+
+  .acerca-img {
+    min-height: 550px; /* más bajo para móviles */
+    padding: 2rem 1rem;
+  }
+
+  .cuadro-acerca {
+    flex-direction: column; /* apila los elementos */
+    gap: .5rem;
+    padding: 1rem .5rem;
+  }
+
+  .ceo-acerca img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    width: 250px;
+    height: 250px;
+  }
+.ceo-acerca img.animate {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+  .bloques-acerca p {
+    font-size: 1.5rem; /* texto más pequeño */
+    line-height: 1.4;
+   
+  }
+
+  .bloque-main-acerca {
+    flex-direction: column; /* apila el icono y el texto */
+    text-align: center;
+    padding: 1.5rem 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+.bloque-main-acerca.animate {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+  .bloque-main-acerca::before {
+    display: none; /* eliminar adorno decorativo en móvil si molesta */
+  }
+
+  .bloque-main-acerca p {
+    font-size: 0.95rem;
+    text-align: center;
+     text-align: justify;
+  }
+
+  .icon1-acerca {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+
+
+
+
+
 .contacto-img{
   position: relative;      /* Necesario si agregas texto encima después */
   background-size: cover;
@@ -739,15 +1007,18 @@ img{
   box-sizing: border-box;
 }
 
-
-
-
-
-
-.bloques-contacto h1{
-color: #000000;
-width: var(--maxw);
-font-size: 40px;
+.contacto-titulo-imagen{
+    color: #ffffff; /* negro suave, para no saturar */
+  font-size: 5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* misma familia para coherencia */
+  font-weight: 800; /* un poco más pesado para destacar */
+  letter-spacing: 0.08em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.5); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+   animation: fadeInUp 1.2s ease-in-out;
 }
 
 .bloque-main-contacto {
@@ -868,6 +1139,140 @@ font-size: 40px;
   flex-shrink: 0;
 }
 
+
+
+@media (max-width: 768px) {
+
+
+.contacto-img{
+  min-height: 550px;      /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+  
+}
+.cuadro-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.bloques-contacto {
+  display: flex;
+  flex-direction: column;
+  
+}
+.bloques-contacto .animate {
+  transform: scale(1.2);
+  box-shadow: 0 66px 150px rgba(0,0,0,0.3);
+}
+.contacto-titulo-imagen{
+  font-size: 37px;
+}
+
+.bloque-main-contacto {
+  flex-direction: column;
+
+}
+
+.bloque-main-contacto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-contacto::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #1f1a12;
+  position: absolute;
+  top: 1px;
+  left: 115px;
+  opacity: 0.2;
+}
+
+.bloque-main-contacto p {
+  margin: 0;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
+}
+.bloques-contacto-enlace{
+  display: flex;
+}
+
+.bloques-contacto-enlace .animate {
+  display: flex;
+}
+.bloques-contacto-enlace img{
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+  max-width: 100%;  /* que no sobresalga del contenedor */
+  margin-left: 40px; 
+  width: auto;      /* mantiene la proporción */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* para que se note que es interactivo */
+}
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.bloques-contacto-enlace img:hover,
+.bloques-contacto-enlace img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.bloques-contacto-enlace p {
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem; /* un poco más grande, legible */
+  font-family: 'Montserrat', 'Roboto', sans-serif; /* tipografía moderna */
+  letter-spacing: 0.5px; /* espacio ligero entre letras */
+  text-decoration: none;
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  transition: 
+    color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.bloques-contacto-enlace p:hover,
+.bloques-contacto-enlace p:focus {
+  color: #0056b3;
+  transform: scale(1.05);
+  outline: none;
+}
+
+
+.icon1-contacto {
+  width: 6rem;
+  height: 4rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.icon2-contacto {
+  width: 10rem;              /* Control del tamaño solo desde CSS */
+  height: 6rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0;
+}
+
+}
 
 
 
@@ -1041,30 +1446,15 @@ font-size: 40px;
   border: 1px solid var(--shop-border);                /* Borde suave */
   border-radius: 16px;                                 /* Bordes redondeados */
   box-shadow: var(--shop-shadow);                      /* Sombra leve */
-  padding: 45px 16px;                                       /* Relleno interno */
+  padding: 1rem 16px;                                       /* Relleno interno */
   display: flex;                                       /* Layout vertical simple */
   flex-direction: column;                              /* Apilado vertical */
-  gap: 12px;                                           /* Separación entre elementos internos */
+  gap: 14px;                                           /* Separación entre elementos internos */
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;    
 }
 
-.card__fav{ /* Botón del corazón */
-  position: absolute;                                  /* Lo fijamos dentro de la card */
-  top: 6px;                                           /* Separación del borde superior */
-  right: 2px;                                         /* Separación del borde derecho */
-  width: 36px;                                         /* Tamaño del botón */
-  height: 36px;                                        /* Alto del botón */
-  display: grid;                                       /* Centrado del icono */
-  place-items: center;                                 /* Centrado exacto */
-  border: 1px solid var(--shop-border);                /* Borde circular suave */
-  border-radius: 50%;                                   /* Forma circular */
-  background: #fff;                                    /* Fondo blanco */
-  color: #9ca3af;                                      /* Color del ícono (gris) */
-  cursor: pointer;                                     /* Cursor de mano */
-}
-
-.card__fav:hover{ color: #111; }                       /* Ícono más oscuro al hover */
-
-.card__favIcon{ width: 18px; height: 18px; }           /* Tamaño del SVG corazón */
 
 .card__img{ /* Imagen del producto */
   width: 100%;                                         /* Que ocupe todo el ancho disponible */
@@ -1073,18 +1463,33 @@ font-size: 40px;
   border-radius: 12px;                                  /* Bordes redondeados suaves */
   background: #f3f4f6;                                  /* Fondo gris por si la imagen tiene fondo transparente */
 }
+.card__content{
+  width: 100%;
+    display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: .5rem;
+}
 
 .card__title{ /* Nombre del producto */
-  margin: 0;                                           /* Quitamos margen por defecto */
+  margin: 4px;                                           /* Quitamos margen por defecto */
   text-align: center;                                  /* Centrado como en tu imagen */
   color: var(--shop-text);                             /* Texto principal */
-  line-height: 1.35;                                   /* Altura de línea cómoda */
+  font-size: clamp(21px, 2vw, 40px); /* 🔥 se adapta entre 14px y 18px según ancho */                                  /* Altura de línea cómoda */
+   display: -webkit-box;
+  -webkit-line-clamp: 2;       /* 🔥 máximo 2 líneas */
+  -webkit-box-orient: vertical;
+   line-height: 1.2;
+  min-height: 2.4em;           /* 🔐 asegura espacio para 2 líneas (1.2 x 2) */
 }
 
 .card__price{ /* Precio */
-  margin: .25rem 0 0;                                  /* Margen superior pequeño */
+  margin: .2rem .2rem;                                  /* Margen superior pequeño */
   text-align: center;                                  /* Centrado */
-  font-size: 1.8rem;                                   /* Tamaño grande */
+  font-size: clamp(17px, 2vw, 36px); /* 🔥 se adapta entre 14px y 18px según ancho */                                   /* Tamaño grande */
+     display: -webkit-box;
+  -webkit-line-clamp: 2;       /* 🔥 máximo 2 líneas */
+  -webkit-box-orient: vertical;
   font-weight: 700;                                    /* Negrita */
   letter-spacing: .3px;                                /* Un poquito de tracking */
 }
@@ -1099,6 +1504,11 @@ font-size: 40px;
   padding: .9rem 1rem;                                 /* Relleno cómodo */
   font-weight: 600;                                    /* Peso medio-alto */
   cursor: pointer;                                     /* Cursor de mano */
+    text-align: center;
+  justify-content: center;
+  align-items: center;   
+  margin-top: auto; /* 🚀 Empuja el botón al fondo */
+  align-self: center; /* Centra horizontalmente */
 }
 
 .card__cta:hover{ background: #000; }                  /* Un poco más oscuro al hover */
@@ -1109,7 +1519,91 @@ font-size: 40px;
 @media (max-width: 900px){ /* Tablets y abajo */
   .shop__container{ grid-template-columns: 1fr; }      /* Filtros arriba, productos debajo */
   .shop__filters{ position: static; }                  /* Quitamos sticky para móviles */
+  .resultsBar__title{
+    font-size: 15px;
+  }
+  .resultsBar__sort{ /* Envoltorio del select */
+  display: flex;                                      /* Alineación horizontal */
+  align-items: center;                                /* Centrado vertical */
+  gap: 10px;                                           /* Separación entre label y select */
+  background: var(--shop-card);                       /* Fondo blanco */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 999px;                               /* Pastillita redondeada */
+  padding: .15rem .1rem;                              /* Relleno interno */
+  justify-content: space-between;
 }
+
+.resultsBar__sortLabel{ 
+  margin-left: 1rem;  
+  font-size: .80rem; }          /* Texto “Por precio” */
+
+.resultsBar__select{ /* Select nativo estilizado lo justo */
+  border: 0;                                          /* Sin borde extra */
+  background: transparent;                            /* Transparente para integrar con el wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto legible */
+  padding-right: .15rem;                              /* Un poco de respiro a la derecha */
+  font-size: .80rem;
+}
+.shop__container{
+  gap:10px
+}
+
+.products{ /* Contenedor de las cards */
+  display: grid;                                      /* Activamos grid para las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));/* Responsive: mínimo 260px por card */
+  gap: 10px;                                          /* Separación entre tarjetas */
+}
+
+.card{
+    position: relative;                                  /* Para posicionar el botón de favorito */
+  background: var(--shop-card);                        /* Fondo blanco */
+  border: 1px solid var(--shop-border);                /* Borde suave */
+  border-radius: 16px;                                 /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                      /* Sombra leve */
+  padding: 14px 8px;                                       /* Relleno interno */
+  display: flex;                                       /* Layout vertical simple */
+  flex-direction: column;                              /* Apilado vertical */
+  gap: 12px;      
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.card__price{ /* Precio */
+  margin: .25rem 0 0;                                  /* Margen superior pequeño */
+  text-align: center;                                  /* Centrado */                                  /* Tamaño grande */
+  font-weight: 700;                                    /* Negrita */
+  letter-spacing: .3px;                                /* Un poquito de tracking */
+}
+
+.card__cta{ /* Botón “Compra ahora” */
+  margin-top: 4px;                                     /* Pequeño respiro del precio */
+  width: 100%;                                         /* Ancho completo */
+  background: #111111;                                 /* Negro (parecido a tu screenshot) */
+  color: #ffffff;                                      /* Texto blanco */
+  border: 0;                                           /* Sin borde */
+  font-size: 10px;
+  border-radius: 10px;                                 /* Pastilla suave */
+  padding: .4rem .4rem;                                 /* Relleno cómodo */
+  font-weight: 600;                                    /* Peso medio-alto */
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  align-items: center;                                     /* Cursor de mano */
+}
+
+.card__cta:hover{ background: #000; }  
+
+.card__img{ /* Imagen del producto */
+  width: 100%;                                         /* Que ocupe todo el ancho disponible */
+  aspect-ratio: 1;                                   /* Proporción aproximada de la imagen */
+  object-fit: contain;                                  /* Ajuste sin recortar */
+  border-radius: 12px;                                  /* Bordes redondeados suaves */
+  background: #f3f4f6;                                  /* Fondo gris por si la imagen tiene fondo transparente */
+}
+}
+
+/*DETALLE PRODUCTO*/
 
 
 .prod_select {
@@ -1276,3 +1770,41 @@ font-size: 40px;
   font-weight: bold;
 }
 
+@media(max-width: 780px){
+
+  .prod_select {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  gap: 1rem;
+
+}
+.prod_select__image {
+  display: flex;
+  max-width: 270px;
+  min-height: 280px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  justify-content: center ;           
+  align-items: center;
+   align-self: center;
+  padding: .5rem .5rem;         /* Que ocupe todo el ancho disponible */                          /* Ajuste sin recortar */                              /* Bordes redondeados suaves */
+}
+.prod_select__image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;                 /* Asegura que no herede comportamiento inline */
+}
+  .prod_select__info {
+  justify-content: left;
+  gap: .6rem;
+  margin: 1rem 1rem;
+
+}
+.prod_select__headers{
+  display: flex;
+  max-height: 1.5rem;
+  gap: 2rem;
+}
+}

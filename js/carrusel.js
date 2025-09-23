@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM esté cargado
+  
   console.log('[APP] DOM cargado - inicializando script'); // Log inicial para saber que el archivo se ejecutó
   /* =========================================================
      PARTE A: Carousel (si existe en la página) - inicialización segura
@@ -56,3 +57,9 @@ document.addEventListener('DOMContentLoaded', () => { // Espera a que el DOM est
     console.error('[CAROUSEL] error durante la inicialización:', err); // Mostramos el error en consola
   }
 }); // Fin del event listener DOMContentLoaded
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('menu');
+
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('active');
+  });

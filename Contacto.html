@@ -19,7 +19,8 @@
   <nav class="navbar">
     <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
     
-    <div class="enlaces"> <!-- Caja 2 -->
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
       <a href="index.html">Inicio</a>
       <a href="Acerca.html">Acerca de</a>
       <a href="Producto.html">Productos</a>
@@ -44,14 +45,12 @@
     <div class="contacto-main">
     <div class="contacto-img-bloque">
 <section class="contacto-img">
-  <div class="acerca-titulo-imagen">Buscas asesoramiento</div>
+  <div class="contacto-titulo-imagen">Buscas asesoramiento</div>
 </section>
 
     </div>
     <div class="cuadro-contacto">
-      <div class="bloques-contacto">
 
-      </div>
       <div class="bloques-contacto">
         <div class="bloque-main-contacto">
                   <img class="icon1-contacto" src="./img/logo-applestore.png">
@@ -98,5 +97,22 @@
 
   <!-- Script del carrusel -->
   <script src="./js/script.js"></script>
+   <script src="./js/carrusel.js"></script>
+    <script>
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+document.querySelectorAll('.bloques-contacto,.bloques-contacto-enlace ,.icon2-contacto').forEach(el => {
+  observer.observe(el);
+});
+
+  </script>
 </body>
 </html>

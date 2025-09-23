@@ -8,6 +8,8 @@
     let productos = [];
     let colorchoose = "";
     let capacidadchoose = "";
+    let precioCurrent = "";
+    let precioCurrentOld = "";
     // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
     const urlCSV = "./catalogo.csv";
     // 1) Función para cargar productos desde CSV (async)
@@ -30,8 +32,8 @@
       return data.map(row => ({
         id: parseInt(row.id),
         nombre: row.nombre,
-        precio: parseFloat(row.precio),
-        precioold: parseFloat(row.precioold),
+        precio: row.precio,
+        precioold: row.precioold,
         descripcion: row.descripcion,
         colores: row.colores,
         capacidad: row.capacidad,
@@ -82,28 +84,31 @@ if (dispStock.toLowerCase() === 'disponible') {
     contenedor.innerHTML = `
         <!-- Columna izquierda: Imagen -->
       <div class="prod_select__image">
-        <img src="${producto.img}" alt="Imagen producto">
+        <img src="./img/${producto.img}" alt="Imagen producto">
       </div>
       <div class="prod_select__info">
         
         <!-- Etiqueta de oferta -->
-        <span class="badge ${claseEstado}">${dispStock}</span>
+         <div class="prod_select__headers">
+                <span class="badge ${claseEstado}">${dispStock}</span>
         
         <!-- Marca -->
         <p class="brand">Apple</p>
+      </div>
+
         
         <!-- Nombre del prod_selecto -->
         <h1 class="title">${producto.nombre}</h1>
         
         <!-- Precio -->
         <div class="price">
-          <span class="price__current">S/. ${producto.precio}</span>
+          <span class="price__current">S/. ${precioCurrent}</span>
           <span class="price__old">S/. ${producto.precioold}</span>
           <span class="price__discount">${producto.stock} uds disp</span>
         </div>
         
-        <!-- Rating -->
-        <p class="rating">⭐ 4.8 (363)</p>
+        <!-- Rating -- <p class="rating">⭐ 4.8 (363)</p> >
+        
         
         <!-- Botón principal -->
         <button id="btn-comprar" class="btn btn--primary">Compra ahora</button>
@@ -130,7 +135,7 @@ if (dispStock.toLowerCase() === 'disponible') {
 const btnComprar = document.getElementById("btn-comprar");
 
 btnComprar.addEventListener("click", () => {
-  contactarProducto(producto.nombre, producto.marca, producto.precio, colorchoose, capacidadchoose);
+  contactarProducto(producto.nombre, producto.marca, precioCurrent, colorchoose, capacidadchoose);
 });
 
 
@@ -179,15 +184,33 @@ colores.forEach(color => {
   const storageContainer = document.querySelector("#producto-storage");
 if (producto.capacidad && producto.capacidad.length > 0) {
   const capacidad = producto.capacidad.split(",").map(c => c.trim());
-  capacidad.forEach(cap => {
+  const precios = String(producto.precio).split(",").map(p => p.trim());
+  const preciosOld = String(producto.precioold).split(",").map(p => p.trim());
+      precioCurrent = precios[0] || "";
+      precioCurrentOld = preciosOld[0] || "";
+            document.querySelector(".price__current").textContent = `S/. ${precioCurrent}`;
+      document.querySelector(".price__old").textContent = `S/. ${precioCurrentOld}`;
+console.log('PRRUEBA STRING PRECIO', precios);
+  capacidad.forEach((cap,index) => {
     const btn = document.createElement("button");
     btn.textContent = cap;
     btn.classList.add("storage__option");
+    
+
+
     btn.addEventListener("click", () => {
       document.querySelectorAll(".storage__option").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       capacidadchoose=cap;
       console.log('Alacenamiento escogido', capacidadchoose);
+      
+      // 🔥 Actualizar precios dinámicamente
+      precioCurrent = precios[index] || "";
+      precioCurrentOld = preciosOld[index] || "";
+      console.log('Precio actual',precioCurrent);
+      document.querySelector(".price__current").textContent = `S/. ${precioCurrent}`;
+      document.querySelector(".price__old").textContent = `S/. ${precioCurrentOld}`;
+
     });
 
     storageContainer.appendChild(btn);
@@ -207,12 +230,12 @@ if (producto.capacidad && producto.capacidad.length > 0) {
 
     }
 
-    function contactarProducto(nombre, marca, precio, colorchoose ,capacidadchoose ) {
+  function contactarProducto(nombre, marca, precioCurrent, colorchoose ,capacidadchoose ) {
   const numero = "51978581770";
   const mensaje = `Hola, estoy interesado en el producto:
 📱 *${nombre}*
 🏷️ Marca: *${marca}*
-💵 Precio: S/.${precio}
+💵 Precio: S/.${precioCurrent}
 🎨 Color: *${colorchoose || 'Sin seleccionar'}*
  Almacenamietno: *${capacidadchoose || 'Sin seleccionar'}*`;
 

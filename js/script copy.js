@@ -1,5 +1,5 @@
 // ===================================================================
-// script.js - Código completo comentado línea por línea 
+// script.js - Código completo comentado línea por línea (para novatos)
 // ===================================================================
 
 // Esperamos a que el DOM esté completamente cargado antes de ejecutar cualquier lógica JS
@@ -11,11 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Variables globales para mantener estado
     let productos = [];     // Lista completa de productos cargados desde el CSV
-    let currentList = [];   // Lista que se está mostrando actualmente (filtrada/ordenada)
-    let primerPrecio = '';
-    let permitirActualizarURL = false; // No actualiza al inicio
 
-    const vengoDesdeOtraPagina = document.referrer && !document.referrer.includes(window.location.pathname);
     // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
     const urlIMG = "https://productos-fullapplestore.s3.us-east-1.amazonaws.com/";
     // -----------------------------------------------
@@ -156,13 +152,19 @@ async function cargarProductos() {
         
         const html = `
           <article class="card"> 
-
-            <img class="card__img" src="./img/${prod.img}" alt="${prod.nombre}" />
-            <div class="card__content">
+            <button class="card__fav" aria-label="Añadir a favoritos" title="Añadir a favoritos">
+              <svg viewBox="0 0 24 24" class="card__favIcon" aria-hidden="true">
+                <path d="M12.1 21.35l-1.1-.96C5.14 15.86 2 12.99 2 9.5 
+                         2 7 4 5 6.5 5c1.54 0 3.04.99 3.57 2.36h.86
+                         C11.46 5.99 12.96 5 14.5 5 17 5 19 7 
+                         19 9.5c0 3.49-3.14 6.36-8.9 10.89l-1.1.96z"
+                      fill="none" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+            <img class="card__img" src="${prod.img}" alt="${prod.nombre}" />
             <h3 class="card__title">${prod.nombre}</h3>
             <p class="card__price">S/.<strong>${parseFloat(primerPrecio).toFixed(2)}</strong></p>
             <a href="Prod_seleccionado.html?id=${prod.id}" class="card__cta">Compra ahora</a>
-            <div>
           </article>
         `;
         contenedor.insertAdjacentHTML('beforeend', html);
@@ -214,13 +216,10 @@ async function cargarProductos() {
 
       // Aplicamos orden si está seleccionado
       const orden = selectOrden ? selectOrden.value : null;
-      const obtenerPrimerPrecio = (item) => parseFloat(String(item.precio).split(',')[0].trim());
-
       if (orden === 'price-asc') {
-        filtrados = filtrados.slice().sort((a, b) => obtenerPrimerPrecio(a) - obtenerPrimerPrecio(b));
-        console.log(filtrados);
+        filtrados = filtrados.slice().sort((a, b) => a.precio - b.precio);
       } else if (orden === 'price-desc') {
-        filtrados = filtrados.slice().sort((a, b) => obtenerPrimerPrecio(b) - obtenerPrimerPrecio(a));
+        filtrados = filtrados.slice().sort((a, b) => b.precio - a.precio);
       }
 
       // Mostramos los productos resultantes
@@ -241,7 +240,14 @@ async function cargarProductos() {
     console.log('[PRODUCTS] listeners añadidos a checkboxes');
 
     if (selectOrden) {
-      selectOrden.addEventListener('change', aplicarFiltros);
+      selectOrden.addEventListener('change', () => {
+        const orden = selectOrden.value;
+        console.log('[ORDER] opción elegida:', orden);
+        let copia = currentList.slice();
+        if (orden === 'price-asc') copia.sort((a, b) => a.precio - b.precio);
+        else if (orden === 'price-desc') copia.sort((a, b) => b.precio - a.precio);
+        mostrarProductos(copia);
+      });
       console.log('[PRODUCTS] listener añadido al select de orden');
     }
 

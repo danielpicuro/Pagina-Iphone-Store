@@ -17,24 +17,25 @@
   <nav class="navbar">
     <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
     
-    <div class="enlaces"> <!-- Caja 2 -->
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
       <a href="index.html">Inicio</a>
       <a href="Acerca.html">Acerca de</a>
       <a href="Producto.html">Productos</a>
       <a href="Contacto.html">Contacto</a>
     </div>
     
-      <div class="redes">
-        <a href="https://wa.me/51978581770" target="_blank" rel="noopener noreferrer">
-          <img src="./img/whatsapp-nav.png" alt="WhatsApp">
-        </a>
-        <a href="https://www.tiktok.com/@fullapple.store" target="_blank" rel="noopener noreferrer">
-          <img src="./img/tiktok.png" alt="Tiktok">
-        </a>
-        <a href="https://www.instagram.com/fullapple.stor3/" target="_blank" rel="noopener noreferrer">
-          <img src="./img/instagram.png" alt="Instagram">
-        </a>
-      </div>
+    <div class="redes">
+      <a href="https://wa.me/51978581770" target="_blank" rel="noopener noreferrer">
+        <img src="./img/whatsapp-nav.png" alt="WhatsApp">
+      </a>
+      <a href="https://www.tiktok.com/@fullapple.store" target="_blank" rel="noopener noreferrer">
+        <img src="./img/tiktok.png" alt="Tiktok">
+      </a>
+      <a href="https://www.instagram.com/fullapple.stor3/" target="_blank" rel="noopener noreferrer">
+        <img src="./img/instagram.png" alt="Instagram">
+      </a>
+    </div>
   </nav>
 
   <!-- Contenido principal -->
@@ -72,9 +73,8 @@
           Selected Products: <strong>85</strong><!-- Contador destacado tal como en la imagen -->
         </h2>
         <label class="resultsBar__sort"><!-- Envoltorio para el selector de orden -->
-          <span class="resultsBar__sortLabel">Por precio</span><!-- Etiqueta visible (UI) -->
+          <span class="resultsBar__sortLabel">Filtrar por:</span><!-- Etiqueta visible (UI) -->
           <select class="resultsBar__select" aria-label="Ordenar"><!-- Select real para accesibilidad -->
-            <option value="relevant">Relevancia</option><!-- Opción de ejemplo -->
             <option value="price-asc">Precio: bajo a alto</option><!-- Opción de ejemplo -->
             <option value="price-desc">Precio: alto a bajo</option><!-- Opción de ejemplo -->
             <option value="newest">Más nuevos</option><!-- Opción de ejemplo -->
@@ -103,6 +103,7 @@
 
   <!-- Script del carrusel -->
   <script src="./js/script.js"></script>
+   <script src="./js/carrusel.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 </body>
 </html>

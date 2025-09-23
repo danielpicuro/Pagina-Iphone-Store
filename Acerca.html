@@ -19,7 +19,8 @@
   <nav class="navbar">
     <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
     
-    <div class="enlaces"> <!-- Caja 2 -->
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
       <a href="index.html">Inicio</a>
       <a href="Acerca.html">Acerca de</a>
       <a href="Producto.html">Productos</a>
@@ -74,5 +75,22 @@
 
   <!-- Script del carrusel -->
   <script src="./js/script.js"></script>
+   <script src="./js/carrusel.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+document.querySelectorAll('.bloque-main-acerca,.ceo-acerca img').forEach(el => {
+  observer.observe(el);
+});
+
+  </script>
 </body>
 </html>
