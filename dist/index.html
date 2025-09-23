@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Proyecto</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Encabezado principal -->
+  <header>
+    <p>Dispositivos con al menos 6 meses de garantia</p>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
+    
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
+      <a href="./index.html">Inicio</a>
+      <a href="./Acerca.html">Acerca de</a>
+      <a href="./Producto.html">Productos</a>
+      <a href="./Contacto.html">Contacto</a>
+    </div>
+    
+    <div class="redes">
+      <a href="https://wa.me/51978581770" target="_blank" rel="noopener noreferrer">
+        <img src="./img/whatsapp-nav.png" alt="WhatsApp">
+      </a>
+      <a href="https://www.tiktok.com/@fullapple.store" target="_blank" rel="noopener noreferrer">
+        <img src="./img/tiktok.png" alt="Tiktok">
+      </a>
+      <a href="https://www.instagram.com/fullapple.stor3/" target="_blank" rel="noopener noreferrer">
+        <img src="./img/instagram.png" alt="Instagram">
+      </a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main>
+    <!-- Hero Slider (carrusel) -->
+    <section class="hero-slide">
+      <!-- Pista que se mueve -->
+      <div class="hero-slides">
+        <!-- Slide 1 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Iphone 15 pro max</h1>
+            <p>Esta poderosa maquina con una camara 200mpx</p>
+            <a href="Prod_seleccionado.html?id=1"> <button class="hero-slide-btn">Comprar Ahora </button> </a>
+          </div>
+          <div class="hero-slide-image">
+            <img src="./img/iphone-15promax.png" alt="Producto destacado">
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Macbook 450</h1>
+            <p>Oferta especial de esta moderna laptop</p>
+            <a href="Prod_seleccionado.html?id=2"> <button class="hero-slide-btn">Comprar Ahora </button> </a>
+          </div>
+          <div class="hero-slide-image">
+            <img src="./img/macbook.png" alt="Producto destacado">
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="hero-slide-content">
+          <div class="hero-slide-text">
+            <h1>Nosotros</h1>
+            <p>Conoce mas acerca de nosotros. Calidad y confianza garantizadas.</p>
+            <a href="./Acerca.html"> <button class="hero-slide-btn">Comprar Ahora </button> </a>
+          </div>
+          <div class="hero-slide-image">
+            <img src="/img/nosotros_index.png" alt="Producto destacado">
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicadores (puntitos) -->
+      <div class="carousel-dots">
+        <!-- Se rellenan dinámicamente desde JS -->
+      </div>
+    </section>
+
+    <!-- Otras secciones -->
+    <section id="acerca" class="seccion-acerca">
+        <div class="contenido-acerca">
+      <h2>Acerca de mí</h2>
+      <p>"Bienvenidos a [Nombre de la tienda], tu lugar de confianza donde encontrarás productos de calidad, atención personalizada y precios justos. Estamos siempre pendientes de ti por eso atendemos cualquiera de tus dudas"</p>
+      <a href="./Acerca.html"><button class="acerca-btn">Ver mas</button></a>
+      </div>
+    </section>
+
+<section id="catalogo" class="seccion-catalogo">
+  <h1>CATÁLOGO</h1>
+  <div class="catalogo-content">
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="./img/smartphone-iphone.png" alt="Producto 1">
+      </div>
+      <div class="cat-info">
+        <h2>Apple Smarthpones</h2>
+        <p>Consigue los mejores celulares de gama superior</p>
+        <a href="Producto.html?marca=Apple smartphone"> <button>Comprar</button></a>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-img">
+        <img src="./img/Macbook-index.png" alt="Producto 2">
+      </div>
+      <div class="cat-info">
+        <h2>Macbooks</h2>
+        <p>Crea, trabaja y diseña con estos equipos</p>
+        <a href="Producto.html?marca=Macbook"> <button>Comprar</button></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  </main>
+
+  <!-- Barra lateral -->
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy;https://github.com/danielpicuro - 2025 Mi Página Web. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script del carrusel -->
+  <script src="./js/carrusel.js"></script>
+  <script>
+
+</script>
+</body>
+</html>

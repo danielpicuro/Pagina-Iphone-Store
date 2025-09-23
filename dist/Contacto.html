@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Proyecto</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <!-- CDN de Font Awesome -->
+
+</head>
+<body>
+
+  <!-- Encabezado principal -->
+  <header>
+    <p>Dispositivos con al menos 6 meses de garantia</p>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
+    
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
+      <a href="./index.html">Inicio</a>
+      <a href="./Acerca.html">Acerca de</a>
+      <a href="./Producto.html">Productos</a>
+      <a href="./Contacto.html">Contacto</a>
+    </div>
+    
+    <div class="redes">
+      <a href="https://wa.me/51978581770" target="_blank" rel="noopener noreferrer">
+        <img src="./img/whatsapp-nav.png" alt="WhatsApp">
+      </a>
+      <a href="https://www.tiktok.com/@fullapple.store" target="_blank" rel="noopener noreferrer">
+        <img src="./img/tiktok.png" alt="Tiktok">
+      </a>
+      <a href="https://www.instagram.com/fullapple.stor3/" target="_blank" rel="noopener noreferrer">
+        <img src="./img/instagram.png" alt="Instagram">
+      </a>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main>
+    <div class="contacto-main">
+    <div class="contacto-img-bloque">
+<section class="contacto-img">
+  <div class="contacto-titulo-imagen">Buscas asesoramiento</div>
+</section>
+
+    </div>
+    <div class="cuadro-contacto">
+
+      <div class="bloques-contacto">
+        <div class="bloque-main-contacto">
+                  <img class="icon1-contacto" src="./img/logo-applestore.png">
+        </img>
+          <p>Sabemos que cada proyecto es único, y por eso nuestro enfoque comienza con escuchar.. Estamos aquí para ayudarte a crecer, paso a paso, con el respaldo de nuestra experiencia. Comunicate a nuestro canal de atención</p>
+        </div>
+        
+      </div>
+
+      <script>  function asesoriaProducto() {
+  const numero = "51978581770";
+  const mensaje = `Hola, necesito asesoria!`;
+  const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+  window.open(url, '_blank');
+  }</script>
+
+<a onclick="asesoriaProducto()" class="bloques-contacto-enlace-link" target="_blank" rel="noopener noreferrer">
+  <div class="bloques-contacto-enlace">
+    <div class="icon2-contacto">
+      <img src="./img/whatsapp.png" alt="WhatsApp">
+    </div>
+    <p>Contactanos</p>
+  </div>
+</a>
+
+    </div>
+    </div>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy;https://github.com/danielpicuro - 2025 Mi Página Web. Todos los derechos reservados.</p>
+  </footer>
+  
+
+<script>
+  function contactarProducto() {
+    const numero = "51978581770";
+    const mensaje = `Hola, estoy buscando asesoramiento`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+  <!-- Script del carrusel -->
+  <script src="./js/script.js"></script>
+   <script src="./js/carrusel.js"></script>
+    <script>
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+document.querySelectorAll('.bloques-contacto,.bloques-contacto-enlace ,.icon2-contacto').forEach(el => {
+  observer.observe(el);
+});
+
+  </script>
+</body>
+</html>

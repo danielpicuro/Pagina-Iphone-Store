@@ -1,0 +1,1810 @@
+/* =========================================================
+   VARIABLES Y RESET BÁSICO
+========================================================= */
+
+/* Definimos variables CSS para colores, tamaños y radios.
+   Así, si cambias un valor aquí, se refleja en todo el sitio. */
+:root{
+  --bg: #0f172a;             /* color de fondo principal */
+  --panel: #111827;          /* color de paneles/bloques */
+  --text: #e5e7eb;           /* color de texto principal */
+  --muted: #9ca3af;          /* texto más apagado/menos importante */
+  --primary: #60a5fa;        /* color principal (links/botones) */
+  --primary-strong: #3b82f6; /* color principal al hacer hover */
+  --border: #1f2937;         /* color para bordes */
+  --radius: 14px;            /* radios de bordes redondeados */
+  --maxw: 1100px;
+  --maxmargin: 2rem;            /* ancho máximo del contenido */
+}
+
+/* Hacemos que todos los elementos usen "border-box",
+   así el padding y border no aumentan el ancho total. */
+*,
+*::before,
+*::after{ 
+  box-sizing: border-box; 
+}
+
+/* =========================================================
+   ESTILOS GENERALES DEL DOCUMENTO
+========================================================= */
+
+/* Activamos scroll suave al navegar entre secciones con #anclas */
+html{
+  scroll-behavior: smooth;
+}
+
+/* Estilos globales del body */
+body{
+  margin: 0; /* quitamos márgenes por defecto */
+  color: var(--text); /* color de texto */
+  background: radial-gradient(1200px 800px at 10% 10%, #0b1224 0%, var(--bg) 55%) fixed; 
+  /* fondo degradado radial oscuro */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+  /* tipografía por defecto */
+  line-height: 1.6; /* espacio entre líneas */
+}
+
+/* Establecemos un ancho máximo y centrado para todos los bloques principales */
+  aside, footer{
+  max-width: var(--maxw); /* límite de ancho */
+  margin-inline: auto;    /* centra horizontalmente */
+  padding-inline: 1rem;   /* espacio lateral interno */
+}
+
+/* Títulos con espacio vertical uniforme */
+h1, h2, h3{
+  line-height: 1.2; /* más compacto */
+  margin: 0 0 .6rem; /* margen inferior */
+}
+
+/* Párrafos y listas con espacio debajo */
+p, ul{ margin: 0 0 1rem; }
+
+/* Enlaces (links) */
+a{
+  color: var(--primary); /* color azul */
+  text-decoration: none; /* sin subrayado */
+}
+a:hover,
+a:focus-visible{
+  color: var(--primary-strong); /* azul más fuerte al pasar el mouse o usar TAB */
+  text-decoration: underline;   /* subrayado */
+  outline: none;                /* quitamos contorno por defecto */
+}
+
+/* =========================================================  
+   HEADER
+========================================================= */
+header{
+  height: 20px;
+  padding-block: .05rem .2rem; /* espacio arriba y abajo */
+  text-align: center;         /* centrar texto */
+  background-color: #000000;
+  justify-content: center;
+  align-items: center;
+}
+header h1{
+  /* tamaño de fuente que se adapta al ancho de pantalla */
+  font-size: clamp(1.8rem, calc(2.5vw + 1rem), 3rem);
+  letter-spacing: .4px; /* separación de letras */
+
+}
+header p{
+  color: var(--muted);    /* color gris más suave */
+  font-size: .75rem;     /* un poco más grande que normal */
+  font-family: 'Luckiest Guy', cursive;
+  background: linear-gradient(90deg, #ff005a, #ff7b00, #ffee00, #00ff6a, #00c3ff, #7a00ff);
+  animation: gradientMove 3s ease infinite;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 2px 0;
+}
+/* INDEX.HTML
+/* =========================================================
+   NAVEGACIÓN
+========================================================= */
+/* Unifica todo en este selector */
+/* Estilos para la barra de navegación principal */
+nav.navbar {
+  max-width: none; /* Anula cualquier límite de ancho máximo (permite que ocupe todo el ancho disponible) */
+  margin: 0; /* Elimina márgenes externos que puedan empujar la barra hacia un lado */
+  width: 100%;  /* Asegura que el nav ocupe todo el ancho de la ventana */
+
+  display: flex; /* Convierte al nav en un contenedor flexbox para alinear los hijos (links, logo, etc.) */
+  justify-content: space-between; /* Distribuye los elementos dejando espacio entre ellos (extremos separados) */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  padding-inline: clamp(16px, 4vw, 48px); 
+  /* Agrega padding lateral responsivo:
+     - mínimo 16px
+     - escala en función del ancho de la pantalla (4vw)
+     - máximo 48px */
+  position: sticky; /* Hace que la barra se quede "pegada" arriba al hacer scroll */
+  top: 0; /* La fija en la parte superior de la ventana */
+  z-index: 20; /* Asegura que quede por encima de otros elementos al hacer scroll */
+  background: linear-gradient(90deg, rgba(229,231,235,0.25) 0%, rgba(107,114,128,0.3) 25%, rgba(75,85,99,0.4) 60%, rgba(0,74,66,0.5) 100%);
+
+backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-transparente para estilo moderno */
+  backdrop-filter: blur(6px); /* Aplica desenfoque a lo que hay detrás del nav (efecto de vidrio) */
+  border-top: 1px solid var(--border); /* Línea superior con color definido en la variable --border */
+  border-bottom: 1px solid var(--border); /* Línea inferior con color definido en la variable --border */
+}
+/* Orden desktop */
+.marca { order: 1; }
+.enlaces { order: 2; }
+.redes { order: 3; }
+/* Botón hamburguesa */
+.menu-toggle {
+  display: none;
+  font-size: 2rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.enlaces {
+  flex: 1; /* Ocupa todo el espacio central posible */
+  text-align: center; /* Centra los enlaces horizontalmente */
+}
+.enlaces a {
+  margin: 0 10px; /* Espacio entre los enlaces */
+  text-decoration: none; /* Quita subrayado */
+  color: var(--text); /* Color del texto */
+}
+/* Caja 3: Redes sociales */
+.redes a img {
+  width: 20px; /* Tamaño uniforme de iconos */
+  margin-left: 10px; /* Espacio entre iconos */
+}
+
+nav a{
+  display: inline-block;       /* para poder dar padding */
+  padding: .5rem .5rem;        /* espacio interno */
+  border-radius: 999px;        /* forma de pastilla/redondeado */
+  border: 1px solid transparent; /* borde invisible */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover,
+nav a:focus-visible{
+  background: #0b1224;     /* fondo oscuro al hover */
+  border-color: var(--border); /* borde visible */
+}
+nav .marca {
+  font-size: 1.2rem; /* Hace que la marca sea un poco más grande */
+  font-weight: bold; /* Le da negrita para resaltar */
+}
+nav .marca img {
+  width: 120px;
+  height: 65px;
+  margin: 0rem;
+}
+
+/* =========================================================
+   LAYOUT PRINCIPAL
+========================================================= */
+main{
+  padding-block: 1.6rem; /* espacio arriba y abajo */
+  background-color: white;
+}
+aside{
+  padding-block: 1.6rem 2.2rem;
+}
+
+/* Desde pantallas grandes (>=900px), aplicamos grid */
+@media (min-width: 900px){
+  /* Creamos dos columnas dentro del contenedor layout */
+  .layout{
+    display: grid;                 /* usamos grid */
+    grid-template-columns: 2fr 1fr;/* dos columnas: grande y pequeña */
+    gap: 2rem;                     /* espacio entre columnas */
+  }
+}
+
+/* =========================================================
+   SECCIONES DE CONTENIDO
+========================================================= */
+section{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18); /* sombra */
+  margin-bottom: 1.2rem;
+}
+section h2{
+  margin-bottom: .6rem;
+  font-size: 1.35rem;
+}
+section ul{
+  padding-left: 1.2rem; /* indentación de listas */
+}
+section li{ margin-bottom: .4rem; }
+
+/* =========================================================
+   BARRA LATERAL (ASIDE)
+========================================================= */
+aside{
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18);
+}
+aside h3{
+  margin-bottom: .4rem;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+aside p{ color: var(--muted); }
+
+/* =========================================================
+   PIE DE PÁGINA
+========================================================= */
+footer{
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  font-size: .55rem;
+}
+
+/* =========================================================
+   ACCESIBILIDAD Y DETALLES
+========================================================= */
+:focus-visible{
+  outline: 2px solid var(--primary-strong); /* contorno al usar TAB */
+  outline-offset: 2px;
+}
+img{ 
+  max-width: 100%; /* que nunca sobrepase el ancho del contenedor */
+  height: auto;    /* mantiene proporción */
+  display: block;  /* evita espacio debajo */
+}
+/* hero-slide Section principal */
+/* ========== HERO SLIDER (carrusel) ========== */
+.hero-slide {
+  position: relative;  /* Para posicionar los puntitos */
+  width: 100%;       /* Ocupa todo el ancho de la ventana */
+  height: 100vh;       /* Ocupa toda la altura visible */
+  overflow: hidden;    /* Oculta el contenido que se sale */
+  margin: 0 auto;
+  background: var(--panel);
+  border-radius: 0%;
+  background: linear-gradient(135deg, #0b1224, #004b42, #164450);
+}
+
+.hero-slides {
+  display: flex; /* Coloca los slides en fila */
+  transition: transform 0.5s ease-in-out; /* Animación al mover slides */
+  height: 100%;
+}
+
+.hero-slide-content {
+  min-width: 100%; /* Cada slide ocupa toda la pantalla */
+  height: 100%;
+  display: flex; /* Layout de texto e imagen */
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+/* Columna de texto */
+.hero-slide-text {
+  flex: 2; /* 2/3 de espacio */
+}
+.hero-slide-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.hero-slide-text p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+}
+.hero-slide-btn {
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
+}
+.hero-slide-btn:hover {
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03);
+}
+
+.hero-slide-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Columna de imagen */
+.hero-slide-image {
+  flex: 1.5; /* 1/3 de espacio */
+  display: flex;
+  justify-content: center;
+}
+.hero-slide-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+    object-fit: cover;   /* ✅ Llena todo el espacio manteniendo proporciones */
+}
+
+/* Puntitos indicadores */
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;  /* los coloca al fondo */
+  left: 50%;
+  transform: translateX(-50%); /* centra horizontalmente */
+  display: flex;
+  gap: 10px;
+}
+.carousel-dots .dot {
+  width: 12px;
+  height: 12px;
+  baccatalogokground: gray;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.carousel-dots .dot.active {
+  background: white;
+}
+
+.seccion-acerca {
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-image: url("../img/acerca.jpg"); /* Ajusta la ruta a tu carpeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  height: 100vh;           /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: var(--maxmargin)
+}
+
+.contenido-acerca {
+  display: flex;
+  flex-direction: column;  /* Coloca los elementos uno debajo del otro */
+  gap: 2.5rem;  
+  max-width: 900px;  
+  padding: 2rem;
+  margin: 0 auto;
+  border-radius: 8px;
+  align-items: center;
+}
+.contenido-acerca h2{
+    font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+.contenido-acerca p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.75;
+  letter-spacing: 0.3px;
+  max-width: 700px;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+.acerca-btn {
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
+}
+.acerca-btn:hover {
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03);
+}
+
+.acerca-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+
+
+
+.seccion- {
+  padding: 4rem 1.5rem;
+  margin: var(--maxmargin);
+  text-align: center;
+  background: linear-gradient(145deg,  #eaf6fb, #fff5f0,#eaf6fb);
+}
+.seccion-catalogo h1 {
+  text-align: left;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+/* Contenedor con 4 bloques en fila */
+.catalogo-content {
+  display: flex;
+  justify-content: space-between;
+  gap: clamp(1rem, 2vw, 2.5rem);
+  padding: clamp(1rem, 3vw, 4rem);
+  flex-wrap: wrap; /* Por si se reduce mucho la pantalla */
+}
+
+/* Cada bloque del catálogo */
+.cat {
+  background: linear-gradient(135deg, #f1fcfb,#f1f4fb, #f1fcfb);
+  border-radius: 15px;
+  overflow: hidden;
+  flex: 1 1 calc(25% - 1.5rem); /* 4 columnas */
+  display: flex;
+  flex-direction: column;
+  height: 460px; /* 👈 altura fija */
+  max-width: 100%;
+}
+
+/* Parte superior: imagen */
+.cat-img {
+  height: 200px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.cat-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Parte inferior: texto */
+.cat-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;    /* vertical, abajo */
+  gap: 0.8rem;
+  color: #eee;
+  height: 100%;
+}
+
+.cat-info h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cat-info p {
+  
+  margin: 0;
+  font-size: 0.95rem;
+    background: linear-gradient(90deg, rgb(16, 44, 51), #18212d); /* degradado azul moderno */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cat-info button {
+  margin-top: auto;  
+  background: linear-gradient(145deg, #0b0b18, #2c2c2e);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;       /* Para que puedas controlar el tamaño con width/height si quieres */
+  white-space: nowrap;         /* Evita que el texto se rompa en varias líneas */
+  overflow: visible;           /* Que el texto no se corte si haces el botón más pequeño */
+  padding: 10px 40px; /* controlas el tamaño por padding */
+  font-size: 14px; /* texto fijo */
+  align-self: center; /* centro horizontal */
+  margin-top: auto;   /* empuja hacia abajo */
+
+}
+.cat-info button:hover {
+  background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+  transform: scale(1.03) translateX(-1%);
+
+}
+.cat-info button:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* INDEX END*/
+
+
+
+
+
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN PARA CELULARES Y TABLETS
+========================================================= */
+@media (max-width: 768px) {
+
+    .marca { order: 2; }
+  .enlaces { order: 1; }
+  .redes { order: 3; }
+
+  /* Ajustes para header */
+  header h1 {
+    font-size: 1.5rem;
+  }
+  header p {
+    font-size: 0.65rem;
+  }
+
+  /* Navbar: Menú más compacto y en columna si es necesario */
+  nav.navbar {
+    display: flex;
+  justify-content: space-between; /* Distribuye los elementos dejando espacio entre ellos (extremos separados) */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+    padding: 0.25rem 0.5rem;
+    gap: 3rem;
+    align-items: center;
+    
+
+  }
+  nav .marca img {
+
+  width: 90px;
+  height: 40px;
+  margin-top: 0rem;
+  margin-left: 4.5rem;
+}
+.redes {
+    display: flex;
+    margin: 0.1rem 0;
+    gap: .01rem;
+  }
+
+  .redes a img{
+  width: 12px; /* Tamaño uniforme de iconos */
+  margin-left: 0px; /* Espacio entre iconos */
+  
+  }
+
+  .menu-toggle {
+    display: block;
+    font-size: 1rem;
+  }
+  
+
+
+  .enlaces {
+        position: absolute;
+    top: 100%; /* Justo debajo del nav */
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+      z-index: 999; /* Para que esté por encima de todo */
+    background: linear-gradient(135deg, #004b42,#0b1224, #164450);
+    border: 2px solid var(--border);
+    padding: 1rem;
+    margin-top: 0rem;
+    gap: 0.5rem;
+        border-top: 1px solid var(--border);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .enlaces.active {
+    display: flex; /* Se muestra cuando tiene clase 'active' */
+  }
+
+  .enlaces a {
+    display: block;
+    margin: 0;
+    padding: 0.5rem;
+    text-align: center;
+  }
+
+  /* Hero Slide */
+  .hero-slide {
+    height: auto; /* importante para evitar corte en móviles */
+    padding: 2rem 1rem;
+  }
+
+  .hero-slide-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .hero-slide-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-slide-text p {
+    font-size: 1rem;
+  }
+
+  .hero-slide-image {
+    width: 100%;
+  }
+
+  .hero-slide-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Acerca de */
+  .seccion-acerca {
+    height: auto;
+    padding: 4rem rem;
+    margin-inline-start: .5rem;
+    margin-inline-end: .5rem;
+    margin-block: 1rem;
+  }
+.contenido-acerca {
+  gap: 1.5rem;  
+  max-width: 900px;  
+  padding: .5rem;
+  margin: 0 auto;
+  border-radius: 8px;
+  align-items: center;
+}
+  .contenido-acerca h2 {
+    font-size: 2rem;
+  }
+
+  .contenido-acerca p {
+    font-size: 0.95rem;
+    text-align: center;
+  }
+
+  /* Catálogo - de 4 a 1 o 2 columnas */
+  .catalogo-content {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .cat {
+    flex: 1 1 100%;
+    height: auto;
+  }
+
+  .cat-img {
+    height: 180px;
+  }
+
+  .cat-info h2,
+  .cat-info p {
+    font-size: 1rem;
+  }
+
+  .cat-info button {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.acerca-main{
+    display: flex;           /* activa Flexbox */
+  flex-direction: column;  /* organiza los hijos en columna */
+  gap: 6rem;  
+  
+}
+
+.acerca-img{
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-image:
+    linear-gradient(rgba(180, 170, 170, 0.5), rgba(255, 255, 255, 0.5)),
+    url('../img/acerca.jpg');  /* Gradiente oscuro encima */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  color: white; /* Para que el texto sea visible sobre la imagen */ 
+  min-height: 700px;           /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+}
+
+.acerca-titulo-imagen{
+    color: #ffffff; /* negro suave, para no saturar */
+  font-size: 5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* misma familia para coherencia */
+  font-weight: 800; /* un poco más pesado para destacar */
+  letter-spacing: 0.08em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.5); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+   animation: fadeInUp 1.2s ease-in-out;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.cuadro-acerca {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.bloques-acerca {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 700px;
+  min-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bloques-acerca p{
+  color: #111; /* negro suave, para no saturar */
+  font-size: 2.5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans- serif; /* misma familia para coherencia */
+  font-weight: 700; /* un poco más pesado para destacar */
+  letter-spacing: 0.05em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+}
+
+.bloques-acerca p:hover {
+  color: #01272e; /* el mismo azul encantador para coherencia */
+  text-shadow: 2px 2px 5px rgba(0,95,115,0.4);  
+}
+
+.bloque-main-acerca {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: left;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  max-width: 700px;
+  width: 100%;
+  min-height: 100px;
+  margin: auto;
+  gap: 1rem;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bloque-main-acerca:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-acerca::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #f59e0b;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  opacity: 0.2;
+}
+
+.bloque-main-acerca p {
+  margin: 0;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
+}
+
+.icon1-acerca {
+  width: 3rem;
+  height: 3rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.ceo-acerca {
+  flex-shrink: 0;
+}
+
+.ceo-acerca img{
+  border-radius: 50%;
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
+  border: 5px solid transparent;
+  background: linear-gradient(45deg, #f59e0b, #fbbf24) padding-box;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.ceo-acerca img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+
+
+
+/*MOVILES ACERCA*/
+
+@media (max-width: 768px) {
+  .acerca-main{
+    gap: .5rem;
+  }
+  .acerca-titulo-imagen {
+    font-size: 3rem; /* más pequeño en móvil */
+    padding: 1rem;
+  }
+
+  .acerca-img {
+    min-height: 550px; /* más bajo para móviles */
+    padding: 2rem 1rem;
+  }
+
+  .cuadro-acerca {
+    flex-direction: column; /* apila los elementos */
+    gap: .5rem;
+    padding: 1rem .5rem;
+  }
+
+  .ceo-acerca img {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    width: 250px;
+    height: 250px;
+  }
+.ceo-acerca img.animate {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+  .bloques-acerca p {
+    font-size: 1.5rem; /* texto más pequeño */
+    line-height: 1.4;
+   
+  }
+
+  .bloque-main-acerca {
+    flex-direction: column; /* apila el icono y el texto */
+    text-align: center;
+    padding: 1.5rem 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+.bloque-main-acerca.animate {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+  .bloque-main-acerca::before {
+    display: none; /* eliminar adorno decorativo en móvil si molesta */
+  }
+
+  .bloque-main-acerca p {
+    font-size: 0.95rem;
+    text-align: center;
+     text-align: justify;
+  }
+
+  .icon1-acerca {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+
+
+
+
+
+.contacto-img{
+  position: relative;      /* Necesario si agregas texto encima después */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+    background-image:
+    linear-gradient(rgba(254, 254, 254, 0.469), rgba(255, 255, 255, 0.608)),
+    url('../img/contactanos.jpg');  /* Gradiente oscuro encima */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  text-align: center;
+  color: white; /* Para que el texto sea visible sobre la imagen */ 
+  min-height: 700px;      /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+  
+}
+.cuadro-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.bloques-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  max-width: 700px;
+  min-height: 100px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contacto-titulo-imagen{
+    color: #ffffff; /* negro suave, para no saturar */
+  font-size: 5rem; /* equivalente a 40px pero más flexible */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* misma familia para coherencia */
+  font-weight: 800; /* un poco más pesado para destacar */
+  letter-spacing: 0.08em; /* espaciado ligero para modernidad */
+  line-height: 1.2; /* compacto pero legible */
+  margin-bottom: 0.5rem; /* espacio para separar del texto */
+  text-transform: uppercase; /* le da un toque profesional y llamativo */
+  text-shadow: 2px 4px 10px rgba(0,0,0,0.5); /* sombra sutil para profundidad */
+  transition: color 0.3s ease;
+   animation: fadeInUp 1.2s ease-in-out;
+}
+
+.bloque-main-contacto {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem;
+  text-align: left;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  max-width: 700px;
+  width: 100%;
+  min-height: 100px;
+  margin: auto;
+  gap: 1rem;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bloque-main-contacto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-contacto::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #1f1a12;
+  position: absolute;
+  top: 1px;
+  left: 115px;
+  opacity: 0.2;
+}
+
+.bloque-main-contacto p {
+  margin: 0;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
+}
+.bloques-contacto-enlace{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  width: fit-content; /* O un ancho definido si quieres */
+}
+.bloques-contacto-enlace img{
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+  max-width: 100%;  /* que no sobresalga del contenedor */
+  margin-left: 40px; 
+  width: auto;      /* mantiene la proporción */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* para que se note que es interactivo */
+}
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.bloques-contacto-enlace img:hover,
+.bloques-contacto-enlace img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.bloques-contacto-enlace p {
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem; /* un poco más grande, legible */
+  font-family: 'Montserrat', 'Roboto', sans-serif; /* tipografía moderna */
+  letter-spacing: 0.5px; /* espacio ligero entre letras */
+  text-decoration: none;
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  transition: 
+    color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.bloques-contacto-enlace p:hover,
+.bloques-contacto-enlace p:focus {
+  color: #0056b3;
+  transform: scale(1.05);
+  outline: none;
+}
+
+
+.icon1-contacto {
+  width: 6rem;
+  height: 4rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.icon2-contacto {
+  width: 10rem;              /* Control del tamaño solo desde CSS */
+  height: 6rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0;
+}
+
+
+
+@media (max-width: 768px) {
+
+
+.contacto-img{
+  min-height: 550px;      /* Ocupa el alto completo de la pantalla */
+  overflow: hidden;        /* Por si algo se sale */
+  padding: 4rem 1.5rem; /* Espacio superior/inferior y laterales */
+  margin: 0;
+  
+}
+.cuadro-contacto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.bloques-contacto {
+  display: flex;
+  flex-direction: column;
+  
+}
+.bloques-contacto .animate {
+  transform: scale(1.2);
+  box-shadow: 0 66px 150px rgba(0,0,0,0.3);
+}
+.contacto-titulo-imagen{
+  font-size: 37px;
+}
+
+.bloque-main-contacto {
+  flex-direction: column;
+
+}
+
+.bloque-main-contacto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.bloque-main-contacto::before {
+  content: "❝";
+  font-size: 3rem;
+  color: #1f1a12;
+  position: absolute;
+  top: 1px;
+  left: 115px;
+  opacity: 0.2;
+}
+
+.bloque-main-contacto p {
+  margin: 0;
+  font-size: 1rem; /* un poco más legible */
+  line-height: 1.5; /* mejor espacio entre líneas */
+  word-break: break-word;
+  max-width: 100%;
+  flex: 1;
+  color: #222; /* un negro ligeramente más suave para menos fatiga visual */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* fuente moderna y limpia */
+  font-weight: 400;
+  letter-spacing: 0.02em; /* un toque de espacio entre letras para elegancia */
+  text-shadow: 0 1px 1px rgba(0,0,0,0.05); /* sombra muy sutil para dar profundidad */
+  transition: color 0.3s ease;
+}
+.bloques-contacto-enlace{
+  display: flex;
+}
+
+.bloques-contacto-enlace .animate {
+  display: flex;
+}
+.bloques-contacto-enlace img{
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+  max-width: 100%;  /* que no sobresalga del contenedor */
+  margin-left: 40px; 
+  width: auto;      /* mantiene la proporción */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer; /* para que se note que es interactivo */
+}
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.bloques-contacto-enlace img:hover,
+.bloques-contacto-enlace img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.bloques-contacto-enlace p {
+  color: #222;
+  font-weight: 600;
+  font-size: 1rem; /* un poco más grande, legible */
+  font-family: 'Montserrat', 'Roboto', sans-serif; /* tipografía moderna */
+  letter-spacing: 0.5px; /* espacio ligero entre letras */
+  text-decoration: none;
+  padding: 0;
+  border-bottom: 2px solid transparent;
+  transition: 
+    color 0.3s ease, 
+    border-color 0.3s ease, 
+    transform 0.2s ease;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.bloques-contacto-enlace p:hover,
+.bloques-contacto-enlace p:focus {
+  color: #0056b3;
+  transform: scale(1.05);
+  outline: none;
+}
+
+
+.icon1-contacto {
+  width: 6rem;
+  height: 4rem;
+  fill: #f59e0b;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.icon2-contacto {
+  width: 10rem;              /* Control del tamaño solo desde CSS */
+  height: 6rem;
+  fill: #f59e0b;            /* Color (naranja dorado) */
+  flex-shrink: 0;
+}
+
+}
+
+
+
+
+/* ===============================
+   TIENDA – variables locales
+   =============================== */
+/* Scope: solo dentro de .shop para no romper tu tema global */
+.shop{ /* Contenedor de toda la tienda */
+  --shop-bg: var(--surface, #f7f7f7);                 /* Fondo claro de la página de tienda */
+  --shop-card: var(--card, #ffffff);                  /* Fondo de cada card */
+  --shop-text: var(--text-strong, #0f172a);           /* Texto principal oscuro */
+  --shop-muted: var(--muted, #6b7280);                /* Texto secundario/gris */
+  --shop-border: var(--border, #e5e7eb);              /* Color de bordes suaves */
+  --shop-primary: var(--primary, #111111);            /* Botón negro (usa tu --primary si quieres) */
+  --shop-radius: var(--radius, 16px);                 /* Radio consistente */
+  --shop-shadow: 0 8px 24px rgba(0,0,0,.08);          /* Sombra suave de las cards */
+}
+
+/* ===============================
+   Layout general (2 columnas)
+   =============================== */
+.shop{ /* Área principal de la sección tienda */
+  padding: 1rem;                                      /* Respiro lateral en móviles */
+  background: var(--shop-bg);                        /* Fondo global de la tienda */
+  color: var(--shop-text);  
+  margin: 0px;                         /* Color base del texto */
+}
+
+.shop__container{ /* Grid que reparte filtros + resultados */
+  max-width: 1200px;      
+  max-width: 95%;                            /* Ancho máximo para un buen line-length */
+  margin-inline: auto;                                /* Centrado horizontal */
+  display: grid;                                      /* Activamos CSS Grid */
+  grid-template-columns: 150px 1fr;                   /* Columna fija de 260px + columna flexible */
+  gap: 180px;                                          /* Separación entre columnas */
+}
+
+/* ===============================
+   Filtros laterales (aside)
+   =============================== */
+.shop__filters{ /* Columna izquierda */ 
+  position: sticky;                                   /* Se queda fija al hacer scroll */
+  top: 88px;                                          /* Ajusta según alto de tu navbar */
+  align-self: start;                             /* Empieza arriba del contenedor */
+                      /* Mueve 20px a la izquierda */
+}
+
+.filter{ /* Bloque "Brand" basado en <details> */
+  background: var(--shop-card);                       /* Fondo blanco de panel */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: var(--shop-radius);                  /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                     /* Sombra ligera */
+  padding: .5rem .75rem;                              /* Relleno interno */
+}
+
+.filter__summary{ /* Cabecera clicable del details */
+  list-style: none;                                   /* Quitamos viñeta por defecto */
+  display: flex;                                      /* Alineación horizontal */
+  justify-content: space-between;                     /* Título izquierda, flecha derecha */
+  align-items: center;                                /* Centrado vertical */
+  cursor: pointer;                                    /* Cursor de mano */
+  padding: .5rem;                                     /* Área clicable cómoda */
+  font-weight: 600;                                   /* Un poco más destacado */
+}
+
+.filter__summary::-webkit-details-marker{ display: none; } /* Oculta el triángulo por defecto en Safari/Chrome */
+
+.filter__chev{ /* Flecha visual ▾ */
+  transition: transform .2s ease;                     /* Animación al abrir/cerrar */
+}
+
+.filter[open] .filter__chev{ transform: rotate(180deg); } /* Al abrir rotamos la flecha */
+
+.filter__search{ /* Envoltorio del input de búsqueda */
+  display: grid;                                      /* Usamos grid para icono + input */
+  grid-template-columns: 20px 1fr;                    /* Columna estrecha para el icono */
+  gap: 5px;                                           /* Separación entre icono e input */
+  align-items: center;                                /* Centrado vertical */
+  background: #f3f4f6;                                /* Fondo grisecito del campo */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 10px;                                /* Bordes redondeados */
+  padding: .5rem .75rem;                              /* Relleno interno */
+  margin: .5rem;                                      /* Respiro respecto al borde del panel */
+}
+
+.filter__searchIcon{ font-size: .95rem; }             /* Tamaño del icono de la lupa */
+
+.filter__searchInput{ /* Input real */
+  border: 0;                                          /* Sin borde extra (ya lo tiene el wrapper) */
+  outline: 0;                                         /* Sin contorno azul al foco (lo controlas si quieres) */
+  background: transparent;                            /* Transparente para ver el fondo del wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto oscuro legible */
+}
+
+.filter__list{ /* Lista de checkboxes */
+  margin: .25rem 0 .5rem;                             /* Márgenes verticales */
+  padding: 0;                                         /* Sin padding de <ul> */
+  list-style: none;                                   /* Sin viñetas */
+  max-height: 55vh;                                   /* Altura máxima con scroll si crece mucho */
+  overflow: auto;                                     /* Scroll interno si sobrepasa la altura */
+}
+
+.filter__option{ /* Cada línea de opción (label) */
+  display: grid;                                      /* Grid para alinear checkbox, nombre, cantidad */
+  grid-template-columns: auto 1fr auto;               /* Checkbox | nombre estira | cantidad a la derecha */
+  gap: 10px;                                          /* Separación interna */
+  align-items: center;                                /* Centrado vertical */
+  padding: .5rem .5rem;                               /* Relleno clicable */
+  border-radius: 8px;                                 /* Bordes suaves al hover */
+  cursor: pointer;                                    /* Cursor de mano */
+}
+
+.filter__option:hover{ background: #f9fafb; }         /* Efecto hover suave */
+
+.filter__name{ color: var(--shop-text); }             /* Texto principal de la marca */
+.filter__count{ color: var(--shop-muted); }           /* Número en gris para jerarquía */
+
+/* ===============================
+   Barra de resultados (header)
+   =============================== */
+.shop__results{ /* Columna derecha (productos) */
+  min-width: 0;                                       /* Evita overflow por elementos internos */
+}
+
+.resultsBar{ /* Contenedor del título y el sorter */
+  display: flex;                                      /* Alineación horizontal */
+  justify-content: space-between;                     /* Título a la izquierda, sort a la derecha */
+  align-items: center;                                /* Centrado vertical */
+  margin-bottom: 16px;
+  background-color: #f3f4f6;                                /* Separación del grid */
+}
+
+.resultsBar__title{ margin: 0; }                      /* Quitamos margen por defecto de h2 */
+
+.resultsBar__sort{ /* Envoltorio del select */
+  display: flex;                                      /* Alineación horizontal */
+  align-items: center;                                /* Centrado vertical */
+  gap: 28px;                                           /* Separación entre label y select */
+  background: var(--shop-card);                       /* Fondo blanco */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 999px;                               /* Pastillita redondeada */
+  padding: .35rem 1rem;                              /* Relleno interno */
+}
+
+.resultsBar__sortLabel{ 
+  margin-left: 0;  
+  font-size: .95rem; }          /* Texto “Por precio” */
+
+.resultsBar__select{ /* Select nativo estilizado lo justo */
+  border: 0;                                          /* Sin borde extra */
+  background: transparent;                            /* Transparente para integrar con el wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto legible */
+  padding-right: .25rem;                              /* Un poco de respiro a la derecha */
+}
+
+/* ===============================
+   Grid de productos (cards)
+   =============================== */
+.products{ /* Contenedor de las cards */
+  display: grid;                                      /* Activamos grid para las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));/* Responsive: mínimo 260px por card */
+  gap: 24px;                                          /* Separación entre tarjetas */
+}
+
+.card{ /* Tarjeta de producto */
+  position: relative;                                  /* Para posicionar el botón de favorito */
+  background: var(--shop-card);                        /* Fondo blanco */
+  border: 1px solid var(--shop-border);                /* Borde suave */
+  border-radius: 16px;                                 /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                      /* Sombra leve */
+  padding: 1rem 16px;                                       /* Relleno interno */
+  display: flex;                                       /* Layout vertical simple */
+  flex-direction: column;                              /* Apilado vertical */
+  gap: 14px;                                           /* Separación entre elementos internos */
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;    
+}
+
+
+.card__img{ /* Imagen del producto */
+  width: 100%;                                         /* Que ocupe todo el ancho disponible */
+  aspect-ratio: 2.5/3;                                   /* Proporción aproximada de la imagen */
+  object-fit: contain;                                  /* Ajuste sin recortar */
+  border-radius: 12px;                                  /* Bordes redondeados suaves */
+  background: #f3f4f6;                                  /* Fondo gris por si la imagen tiene fondo transparente */
+}
+.card__content{
+  width: 100%;
+    display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: .5rem;
+}
+
+.card__title{ /* Nombre del producto */
+  margin: 4px;                                           /* Quitamos margen por defecto */
+  text-align: center;                                  /* Centrado como en tu imagen */
+  color: var(--shop-text);                             /* Texto principal */
+  font-size: clamp(21px, 2vw, 40px); /* 🔥 se adapta entre 14px y 18px según ancho */                                  /* Altura de línea cómoda */
+   display: -webkit-box;
+  -webkit-line-clamp: 2;       /* 🔥 máximo 2 líneas */
+  -webkit-box-orient: vertical;
+   line-height: 1.2;
+  min-height: 2.4em;           /* 🔐 asegura espacio para 2 líneas (1.2 x 2) */
+}
+
+.card__price{ /* Precio */
+  margin: .2rem .2rem;                                  /* Margen superior pequeño */
+  text-align: center;                                  /* Centrado */
+  font-size: clamp(17px, 2vw, 36px); /* 🔥 se adapta entre 14px y 18px según ancho */                                   /* Tamaño grande */
+     display: -webkit-box;
+  -webkit-line-clamp: 2;       /* 🔥 máximo 2 líneas */
+  -webkit-box-orient: vertical;
+  font-weight: 700;                                    /* Negrita */
+  letter-spacing: .3px;                                /* Un poquito de tracking */
+}
+
+.card__cta{ /* Botón “Compra ahora” */
+  margin-top: 4px;                                     /* Pequeño respiro del precio */
+  width: 100%;                                         /* Ancho completo */
+  background: #111111;                                 /* Negro (parecido a tu screenshot) */
+  color: #ffffff;                                      /* Texto blanco */
+  border: 0;                                           /* Sin borde */
+  border-radius: 10px;                                 /* Pastilla suave */
+  padding: .9rem 1rem;                                 /* Relleno cómodo */
+  font-weight: 600;                                    /* Peso medio-alto */
+  cursor: pointer;                                     /* Cursor de mano */
+    text-align: center;
+  justify-content: center;
+  align-items: center;   
+  margin-top: auto; /* 🚀 Empuja el botón al fondo */
+  align-self: center; /* Centra horizontalmente */
+}
+
+.card__cta:hover{ background: #000; }                  /* Un poco más oscuro al hover */
+
+/* ===============================
+   Responsivo (cuando se estrecha)
+   =============================== */
+@media (max-width: 900px){ /* Tablets y abajo */
+  .shop__container{ grid-template-columns: 1fr; }      /* Filtros arriba, productos debajo */
+  .shop__filters{ position: static; }                  /* Quitamos sticky para móviles */
+  .resultsBar__title{
+    font-size: 15px;
+  }
+  .resultsBar__sort{ /* Envoltorio del select */
+  display: flex;                                      /* Alineación horizontal */
+  align-items: center;                                /* Centrado vertical */
+  gap: 10px;                                           /* Separación entre label y select */
+  background: var(--shop-card);                       /* Fondo blanco */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 999px;                               /* Pastillita redondeada */
+  padding: .15rem .1rem;                              /* Relleno interno */
+  justify-content: space-between;
+}
+
+.resultsBar__sortLabel{ 
+  margin-left: 1rem;  
+  font-size: .80rem; }          /* Texto “Por precio” */
+
+.resultsBar__select{ /* Select nativo estilizado lo justo */
+  border: 0;                                          /* Sin borde extra */
+  background: transparent;                            /* Transparente para integrar con el wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto legible */
+  padding-right: .15rem;                              /* Un poco de respiro a la derecha */
+  font-size: .80rem;
+}
+.shop__container{
+  gap:10px
+}
+
+.products{ /* Contenedor de las cards */
+  display: grid;                                      /* Activamos grid para las tarjetas */
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));/* Responsive: mínimo 260px por card */
+  gap: 10px;                                          /* Separación entre tarjetas */
+}
+
+.card{
+    position: relative;                                  /* Para posicionar el botón de favorito */
+  background: var(--shop-card);                        /* Fondo blanco */
+  border: 1px solid var(--shop-border);                /* Borde suave */
+  border-radius: 16px;                                 /* Bordes redondeados */
+  box-shadow: var(--shop-shadow);                      /* Sombra leve */
+  padding: 14px 8px;                                       /* Relleno interno */
+  display: flex;                                       /* Layout vertical simple */
+  flex-direction: column;                              /* Apilado vertical */
+  gap: 12px;      
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+.card__price{ /* Precio */
+  margin: .25rem 0 0;                                  /* Margen superior pequeño */
+  text-align: center;                                  /* Centrado */                                  /* Tamaño grande */
+  font-weight: 700;                                    /* Negrita */
+  letter-spacing: .3px;                                /* Un poquito de tracking */
+}
+
+.card__cta{ /* Botón “Compra ahora” */
+  margin-top: 4px;                                     /* Pequeño respiro del precio */
+  width: 100%;                                         /* Ancho completo */
+  background: #111111;                                 /* Negro (parecido a tu screenshot) */
+  color: #ffffff;                                      /* Texto blanco */
+  border: 0;                                           /* Sin borde */
+  font-size: 10px;
+  border-radius: 10px;                                 /* Pastilla suave */
+  padding: .4rem .4rem;                                 /* Relleno cómodo */
+  font-weight: 600;                                    /* Peso medio-alto */
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  align-items: center;                                     /* Cursor de mano */
+}
+
+.card__cta:hover{ background: #000; }  
+
+.card__img{ /* Imagen del producto */
+  width: 100%;                                         /* Que ocupe todo el ancho disponible */
+  aspect-ratio: 1;                                   /* Proporción aproximada de la imagen */
+  object-fit: contain;                                  /* Ajuste sin recortar */
+  border-radius: 12px;                                  /* Bordes redondeados suaves */
+  background: #f3f4f6;                                  /* Fondo gris por si la imagen tiene fondo transparente */
+}
+}
+
+/*DETALLE PRODUCTO*/
+
+
+.prod_select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .1rem;
+  align-items: start;
+  max-width: 100%;
+  min-height: fit-content;
+  margin: auto;
+  padding :1rem 3rem;
+}
+
+.prod_select__image {
+  display: flex;
+  max-width: 580px;
+  min-height: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  justify-content: center ;           
+  align-items: center;
+  text-align: center;
+  padding: 1rem .5rem;         /* Que ocupe todo el ancho disponible */                          /* Ajuste sin recortar */                              /* Bordes redondeados suaves */
+}
+
+
+
+.prod_select__image img {
+  width: 85%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;                 /* Asegura que no herede comportamiento inline */
+}
+
+.prod_select__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Badge oferta */
+.badge {
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  width: fit-content;
+}
+.badge--disponible {
+  background-color: #ecfdf5; /* verde muy claro */
+  color: #047857; /* verde oscuro */
+}
+
+/* Estado: Agotado */
+.badge--agotado {
+  background-color: #fef2f2; /* rojo muy claro */
+  color: #b91c1c; /* rojo fuerte */
+}
+
+/* Marca y título */
+.brand {
+  font-size: 1rem;
+  color: #666;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+/* Precio */
+.price {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.price__current {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #004d40;
+}
+.price__old {
+  text-decoration: line-through;
+  color: #999;
+}
+.price__discount {
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #6b7280; /* Gris neutro, tono bajo */
+  opacity: 0.7;
+}
+
+/* Rating */
+.rating {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+/* Botón principal */
+.btn {
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.btn--primary {
+  background: #004d40;
+  color: white;
+  font-weight: bold;
+}
+.btn--primary:hover {
+  background: #00695c;
+}
+
+/* Secciones (color, almacenamiento) */
+.section h3 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+/* Colores */
+.colors {
+  display: flex;
+  gap: 0.6rem;
+}
+.color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+.color.active {
+  border: 3px solid #004d40;
+}
+.color--blue { background: #1976d2; }
+.color--green { background: #388e3c; }
+.color--black { background: #212121; }
+.color--pink { background: #ec407a; }
+.color--red { background: #d32f2f; }
+.color--white { background: #f5f5f5; }
+.color--skyblue          { background-color: #87ceeb; }
+.color--gold             { background-color: #f1c40f; }
+.color--purple           { background-color: #9b59b6; }
+.color--sierra-blue      { background-color: #4b6cb7; } /* o personaliza */
+.color--natural-titanium { background-color: #95a5a6; }
+.color--desert           { background-color: #d2b48c; } /* similar a tan */
+
+/* Almacenamiento */
+.storage {
+  display: flex;
+  gap: 1rem;
+}
+.storage__option {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+.storage__option.active {
+  border: 2px solid #004d40;
+  font-weight: bold;
+}
+
+@media(max-width: 780px){
+
+  .prod_select {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  gap: 1rem;
+
+}
+.prod_select__image {
+  display: flex;
+  max-width: 270px;
+  min-height: 280px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  justify-content: center ;           
+  align-items: center;
+   align-self: center;
+  padding: .5rem .5rem;         /* Que ocupe todo el ancho disponible */                          /* Ajuste sin recortar */                              /* Bordes redondeados suaves */
+}
+.prod_select__image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;                 /* Asegura que no herede comportamiento inline */
+}
+  .prod_select__info {
+  justify-content: left;
+  gap: .6rem;
+  margin: 1rem 1rem;
+
+}
+.prod_select__headers{
+  display: flex;
+  max-height: 1.5rem;
+  gap: 2rem;
+}
+}

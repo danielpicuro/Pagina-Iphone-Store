@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Proyecto</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <!-- CDN de Font Awesome -->
+
+</head>
+<body>
+
+  <!-- Encabezado principal -->
+  <header>
+    <p>Dispositivos con al menos 6 meses de garantia</p>
+  </header>
+
+  <!-- Navegación -->
+  <nav class="navbar">
+    <div class="marca"> <img src="./img/logo-applestore.png" alt="LOGO"></div> <!-- Caja 1 -->
+    
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+    <div class="enlaces" id="menu"> <!-- Caja 2 -->
+      <a href="./index.html">Inicio</a>
+      <a href="./Acerca.html">Acerca de</a>
+      <a href="./Producto.html">Productos</a>
+      <a href="./Contacto.html">Contacto</a>
+    </div>
+    
+    <div class="redes">
+      <a href="https://wa.me/51978581770" target="_blank" rel="noopener noreferrer">
+        <img src="./img/whatsapp-nav.png" alt="WhatsApp">
+      </a>
+      <a href="https://www.tiktok.com/@fullapple.store" target="_blank" rel="noopener noreferrer">
+        <img src="./img/tiktok.png" alt="Tiktok">
+      </a>
+      <a href="https://www.instagram.com/fullapple.stor3/" target="_blank" rel="noopener noreferrer">
+        <img src="./img/instagram.png" alt="Instagram">
+      </a>
+    </div>
+  </nav>
+  <!-- Contenido principal -->
+  <main>
+    <div class="acerca-main">
+    <div class="acerca-img-bloque">
+<section class="acerca-img">
+  <div class="acerca-titulo-imagen">NOSOTROS</div>
+</section>
+
+    </div>
+    <div class="cuadro-acerca">
+      <div class="bloques-acerca">
+        <div class="bloque-main-acerca">
+        <img class="icon1-acerca" src="./img/peru-bandera.png" alt="logo-contacto">
+            
+        </img>
+          <p>"Soy un empresario peruano que empezó desde cero, enfrentando muchas dificultades, pero con la convicción de que con esfuerzo y honestidad todo es posible. Mi empresa se dedica a vender productos de tecnología de calidad, nacida del sacrificio y hoy en crecimiento gracias al trabajo duro y compromiso. Quiero inspirar a otros a no rendirse, a creer en sus sueños y a demostrar que en el Perú sí se puede salir adelante, paso a paso, con fe y perseverancia."</p>
+        </div>
+        
+      </div>
+
+        <div class="ceo-acerca" >
+        <img src="./img/ceo-acerca.png" alt="Producto destacado">
+        </div>
+
+
+    </div>
+    </div>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>&copy;https://github.com/danielpicuro - 2025 Mi Página Web. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- Script del carrusel -->
+  <script src="./js/script.js"></script>
+   <script src="./js/carrusel.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+document.querySelectorAll('.bloque-main-acerca,.ceo-acerca img').forEach(el => {
+  observer.observe(el);
+});
+
+  </script>
+</body>
+</html>
