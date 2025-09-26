@@ -14,12 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentList = [];   // Lista que se está mostrando actualmente (filtrada/ordenada)
     let primerPrecio = '';
     let permitirActualizarURL = false; // No actualiza al inicio
+    
 
     const vengoDesdeOtraPagina = document.referrer && !document.referrer.includes(window.location.pathname);
     // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
     const urlIMG = "https://productos-fullapplestore.s3.us-east-1.amazonaws.com/";
     // -----------------------------------------------
-    const urlCSV = "./catalogo.csv";
+    const urlCSV = `${window.location.origin}/catalogo.csv`;
     // 1) Función para cargar productos desde CSV (async)
     // -----------------------------------------------
 async function cargarProductos() {
@@ -127,6 +128,7 @@ async function cargarProductos() {
     const selectOrden = document.querySelector(".resultsBar__select");     // Selector de orden
     const contadorEl = document.querySelector('.resultsBar__title strong'); // Contador de productos
     const contadorE2 = document.querySelector('.filter__count');
+    const inputSearch = document.querySelector(".filter__searchInput");
 
     // Leer parámetros de URL (para conservar filtros activos)
     const params = new URLSearchParams(window.location.search);
@@ -212,6 +214,19 @@ async function cargarProductos() {
         filtrados = productos.filter(p => marcasSeleccionadas.includes(p.marca?.trim()));
       }
 
+        // 2) Filtro por texto del buscador
+  const texto = inputSearch ? inputSearch.value.toLowerCase() : "";
+  if (texto) {
+    filtrados = filtrados.filter(p =>
+      p.nombre.toLowerCase().includes(texto) ||
+      p.marca?.toLowerCase().includes(texto) ||
+      p.descripcion?.toLowerCase().includes(texto)
+    );
+  }
+
+
+
+        // 3) Orden
       // Aplicamos orden si está seleccionado
       const orden = selectOrden ? selectOrden.value : null;
       const obtenerPrimerPrecio = (item) => parseFloat(String(item.precio).split(',')[0].trim());
@@ -244,7 +259,9 @@ async function cargarProductos() {
       selectOrden.addEventListener('change', aplicarFiltros);
       console.log('[PRODUCTS] listener añadido al select de orden');
     }
-
+     if (inputSearch) {
+    inputSearch.addEventListener("input", aplicarFiltros);
+  }
     // -----------------------------------------------
     // 6) Función principal que inicia todo
     // -----------------------------------------------

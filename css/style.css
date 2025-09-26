@@ -122,7 +122,7 @@ nav.navbar {
      - máximo 48px */
   position: sticky; /* Hace que la barra se quede "pegada" arriba al hacer scroll */
   top: 0; /* La fija en la parte superior de la ventana */
-  z-index: 20; /* Asegura que quede por encima de otros elementos al hacer scroll */
+  z-index: 40; /* Asegura que quede por encima de otros elementos al hacer scroll */
   background: linear-gradient(90deg, rgba(229,231,235,0.25) 0%, rgba(107,114,128,0.3) 25%, rgba(75,85,99,0.4) 60%, rgba(0,74,66,0.5) 100%);
 
 backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-transparente para estilo moderno */
@@ -138,7 +138,8 @@ backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); /* Fondo semi-
 .menu-toggle {
   display: none;
   font-size: 2rem;
-  color: var(--text);
+  font-weight: 1000;
+  color:#000000e9;
   cursor: pointer;
   user-select: none;
 }
@@ -357,7 +358,7 @@ img{
 .carousel-dots .dot {
   width: 12px;
   height: 12px;
-  baccatalogokground: gray;
+  background: gray;
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.3s;
@@ -620,7 +621,7 @@ img{
 
 
   .enlaces {
-        position: absolute;
+    position: absolute;
     top: 100%; /* Justo debajo del nav */
     left: 0;
     right: 0;
@@ -1322,6 +1323,7 @@ img{
 }
 
 .filter{ /* Bloque "Brand" basado en <details> */
+  
   background: var(--shop-card);                       /* Fondo blanco de panel */
   border: 1px solid var(--shop-border);               /* Borde suave */
   border-radius: var(--shop-radius);                  /* Bordes redondeados */
@@ -1335,7 +1337,7 @@ img{
   justify-content: space-between;                     /* Título izquierda, flecha derecha */
   align-items: center;                                /* Centrado vertical */
   cursor: pointer;                                    /* Cursor de mano */
-  padding: .5rem;                                     /* Área clicable cómoda */
+  padding: .3rem .1rem;                                     /* Área clicable cómoda */
   font-weight: 600;                                   /* Un poco más destacado */
 }
 
@@ -1352,7 +1354,7 @@ img{
   grid-template-columns: 20px 1fr;                    /* Columna estrecha para el icono */
   gap: 5px;                                           /* Separación entre icono e input */
   align-items: center;                                /* Centrado vertical */
-  background: #f3f4f6;                                /* Fondo grisecito del campo */
+  background: #f6f5f3;                                /* Fondo grisecito del campo */
   border: 1px solid var(--shop-border);               /* Borde suave */
   border-radius: 10px;                                /* Bordes redondeados */
   padding: .5rem .75rem;                              /* Relleno interno */
@@ -1516,11 +1518,87 @@ img{
 /* ===============================
    Responsivo (cuando se estrecha)
    =============================== */
-@media (max-width: 900px){ /* Tablets y abajo */
+@media (max-width: 780px){ /* Tablets y abajo */
+
+
+  
   .shop__container{ grid-template-columns: 1fr; }      /* Filtros arriba, productos debajo */
-  .shop__filters{ position: static; }                  /* Quitamos sticky para móviles */
+  .shop__filters{ 
+    padding: .2rem .2rem; 
+    position: sticky; 
+  z-index: 20; /* Asegura que quede por encima de otros elementos al hacer scroll */
+}                  /* Quitamos sticky para móviles */
+.filter{ /* Bloque "Brand" basado en <details> */
+  width: 350px;
+  border: 0px solid var(--shop-border);
+  gap: 80rem;
+  padding: .1rem .75rem;                              /* Relleno interno */
+}
+
+.filter__summary{ /* Cabecera clicable del details */                   /* Área clicable cómoda */
+  font-weight: 500; 
+  width: 300px;                                  /* Un poco más destacado */
+  font-size: .8rem;
+  gap : 15.5rem;
+ 
+}
+.filter__summary::-webkit-details-marker{ 
+  right: 100%;
+  }
+
+.filter__name{ font-size: .8rem; }             /* Texto principal de la marca */
+.filter__count{ font-size: .8rem; }           /* Número en gris para jerarquía */
+
+
+
+
+.filter__search{ /* Envoltorio del input de búsqueda */
+  display: grid;                                      /* Usamos grid para icono + input */
+  grid-template-columns: 20px 1fr;                    /* Columna estrecha para el icono */
+  gap: 1px;                                           /* Separación entre icono e input */
+  align-items: center;                                /* Centrado vertical */
+  background: #f6f5f3;                                /* Fondo grisecito del campo */
+  border: 1px solid var(--shop-border);               /* Borde suave */
+  border-radius: 80px;                                /* Bordes redondeados */
+  padding: 0rem .35rem;                              /* Relleno interno */
+  margin: .1rem;
+  height: 20px;                                      /* Respiro respecto al borde del panel */
+}
+
+.filter__searchIcon{ font-size: .65rem; }             /* Tamaño del icono de la lupa */
+
+.filter__searchInput{ /* Input real */
+  border: 0;                                          /* Sin borde extra (ya lo tiene el wrapper) */
+  outline: 0;                                         /* Sin contorno azul al foco (lo controlas si quieres) */
+  background: transparent;                            /* Transparente para ver el fondo del wrapper */
+  font: inherit;                                      /* Hereda tipografía */
+  color: var(--shop-text);                            /* Texto oscuro legible */
+  height: 15px;
+  font-size: .8rem;
+}
+
+.filter__list{ /* Lista de checkboxes */
+  margin: .35rem 0 .5rem;                             /* Márgenes verticales */
+  padding: 0;                                         /* Sin padding de <ul> */
+  list-style: none;                                   /* Sin viñetas */
+  max-height: 55vh;                                   /* Altura máxima con scroll si crece mucho */
+  overflow: auto;                                     /* Scroll interno si sobrepasa la altura */
+  gap: 0rem;
+}
+
+.filter__option{ /* Cada línea de opción (label) */
+  display: grid;                                      /* Grid para alinear checkbox, nombre, cantidad */
+  grid-template-columns: auto 1fr auto;               /* Checkbox | nombre estira | cantidad a la derecha */
+  gap: 10px;                                          /* Separación interna */
+  align-items: center;                                /* Centrado vertical */
+  padding: .1rem .5rem;                               /* Relleno clicable */
+  border-radius: 8px;                                 /* Bordes suaves al hover */
+  cursor: pointer;                                    /* Cursor de mano */
+}
+
+
   .resultsBar__title{
-    font-size: 15px;
+    font-size: .9rem;
   }
   .resultsBar__sort{ /* Envoltorio del select */
   display: flex;                                      /* Alineación horizontal */
@@ -1529,13 +1607,14 @@ img{
   background: var(--shop-card);                       /* Fondo blanco */
   border: 1px solid var(--shop-border);               /* Borde suave */
   border-radius: 999px;                               /* Pastillita redondeada */
-  padding: .15rem .1rem;                              /* Relleno interno */
+  padding: .15rem 0rem;                              /* Relleno interno */
   justify-content: space-between;
 }
 
 .resultsBar__sortLabel{ 
-  margin-left: 1rem;  
-  font-size: .80rem; }          /* Texto “Por precio” */
+  margin-left: .5rem;  
+  font-size: .60rem;          /* Texto “Por precio” */
+  font-weight: 600;} 
 
 .resultsBar__select{ /* Select nativo estilizado lo justo */
   border: 0;                                          /* Sin borde extra */
@@ -1544,6 +1623,7 @@ img{
   color: var(--shop-text);                            /* Texto legible */
   padding-right: .15rem;                              /* Un poco de respiro a la derecha */
   font-size: .80rem;
+  font-weight: 400;
 }
 .shop__container{
   gap:10px

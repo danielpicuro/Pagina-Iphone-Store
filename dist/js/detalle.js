@@ -11,7 +11,7 @@
     let precioCurrent = "";
     let precioCurrentOld = "";
     // URL pública donde se aloja el archivo CSV (puedes cambiarla si es necesario)
-    const urlCSV = "./catalogo.csv";
+    const urlCSV = `${window.location.origin}/catalogo.csv`;
     // 1) Función para cargar productos desde CSV (async)
     // -----------------------------------------------
     async function cargarProductos() {
